@@ -20,9 +20,8 @@ Werkzeug==0.14.1
 wrapt==1.11.1
 Authlib==0.11
 oauth==1.0.1
-oauthlib==1.0.3
+oauthlib==3.1.0
 tweepy==3.7.0
 requests==2.21.0
 Flask-OAuthlib==0.9.5
-matplotlib==3.2.2
-textblob==0.15.3
+
