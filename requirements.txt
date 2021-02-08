@@ -23,5 +23,5 @@ oauth==1.0.1
 oauthlib==3.1.0
 tweepy==3.7.0
 requests==2.21.0
-Flask-OAuthlib==0.9.5
+
 
