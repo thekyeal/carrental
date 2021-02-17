@@ -1,5 +1,7 @@
 from flask import Flask, render_template , request
 from flask_mysqldb import MySQL
+from flask_mail import Mail, Message
+
 import random
 
 app = Flask(__name__,
@@ -7,6 +9,7 @@ app = Flask(__name__,
             template_folder='templates')
 
 mysql = MySQL(app)
+mail = Mail(app)
 
 app.config['MYSQL_HOST'] = 'remotemysql.com'
 app.config['MYSQL_USER'] = 'M7faRQD6wL'
@@ -41,6 +44,7 @@ def createaccount():
 		try:
 			cursor.execute("Insert Into users(username,password,colour,email_address) VALUES ('"+ username +"','"+ password + "', '"+ colour + "', '"+ email +"')")
 			conn.commit()
+			msg = Message("Your userID is: "+username+" and password is: "+password+" Feel free to login to you account at https://universalrentals.herokuapp.com/login", sender="urentalstt@gmail.com", recipients=[email])
 			return render_template('index.html')
 		except Exception as e:
 				print(e)
