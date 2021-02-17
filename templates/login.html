@@ -32,24 +32,24 @@
       <h3>Have an Account ?</h3>
       <button type="button" class="login-btn">Login</button>
     </div>
-    <div class="form">
+
+    <form class="login" action="/signin" method="post">
+      <div class="form">
        <!-- Login form Start -->
-       <div class="login-form">
+       
+        <div class="login-form">
          <h3>Log In</h3>
          <div class="form-group">
-           <input type="text" placeholder="Enter your Username" class="form-control">
+           <input type="text" placeholder="Enter your Username" name="username" class="form-control" required>
          </div>
          <div class="form-group">
-           <input type="password" placeholder="Password*" class="form-control">
+           <input type="password" placeholder="Password*" name = "password" class="form-control" required>
          </div>
-         <div class="form-group">
-           <label>
-             <input type="checkbox"> Remember Me
-           </label>
-         </div>
-         <button type="button" class="submit-btn">Login</button>
+         <button type="submit" class="submit-btn">Login</button>
+       
          <p><a href="#" class="register-btn">Register</a> | <a href="#" class="lost-pass-btn">Lost Your Password ?</a></p>
        </div>
+      </form>
        <!-- Login form End -->
 
             <!-- Register form Start -->

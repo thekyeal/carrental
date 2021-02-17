@@ -1,4 +1,4 @@
-from flask import Flask, render_template , request
+from flask import Flask, render_template , request,redirect
 from flask_mysqldb import MySQL
 from flask_mail import Mail, Message
 
@@ -50,6 +50,26 @@ def createaccount():
 				print(e)
 	return render_template('index.html')
 
+@app.route("/signin", methods=['GET','POST'])
+def signing():
+	if request.method == 'POST':
+		username = str(request.form['username'])
+		password = str(request.form['password'])
+		conn = mysql.connect
+		cursor = conn.cursor()
+		cursor.execute("SELECT password FROM users WHERE username='"+username+"'")
+		record = cursor.fetchall()
+		if(len(record)==0):
+			message = "No account associated with this username"
+			return render_template('index.html')
+		for word in record:
+			if password in word:
+				return redirect("/welcome")
+			return render_template('index.html')
+
+@app.route("/welcome")
+def showpage():
+	return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
