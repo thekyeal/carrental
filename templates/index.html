@@ -3,13 +3,13 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static', filename='style.css') }}">
-    <link rel="stylesheet" type= "text/css" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" type= "text/css" href="{{ url_for ('static', filename='fonts/icomoon/style.css')}}">
     <link rel="stylesheet" type= "text/css" href= "{{ url_for('static', filename='bootstrap.min.css')}}">
     <link rel="stylesheet" type= "text/css" href= "{{ url_for('static', filename='bootstrap-datepicker.css')}}">
     <link rel="stylesheet" type= "text/css" href= "{{ url_for('static', filename='jquery.fancybox.min.css')}}">
     <link rel="stylesheet" type= "text/css" href= "{{ url_for('static', filename='owl.carousel.min.css')}}">
     <link rel="stylesheet" type= "text/css" href= "{{ url_for('static', filename='owl.theme.default.min.css')}}">
-    <link rel="stylesheet" type= "text/css" href="fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='fonts/flaticon/font/flaticon.css')}}">
     <link rel="stylesheet" type= "text/css" href= "{{ url_for('static', filename='aos.css')}}">
 
     <link href= "{{ url_for('static',filename='vendor/icofont/icofont.min.css')}}" rel="stylesheet">
@@ -61,13 +61,13 @@
               <li><a href="#team">Customer Reviews</a></li>
               <li class="drop-down"><a href="">Login</a>
                 <ul>
-                  <li><a href="#">Admin</a></li>
-                  <li><a href="#">Customer</a></li>
+                  <li><a href="/login">Admin</a></li>
+                  <li><a href="/login">Customer</a></li>
                 </ul>
               </li>
               <li><a href="#contact">Contact</a></li>
   
-              <li class="get-started"><a href="#about">Register</a></li>
+              <li class="get-started" ><a  href="/login">Register</a></li>
             </ul>
           </nav><!-- .nav-menu -->
         </div><!-- End Header Container -->

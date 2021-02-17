@@ -21,7 +21,7 @@ wrapt==1.11.1
 Authlib==0.14.3
 oauth==1.0.1
 oauthlib==3.1.0
-tweepy==3.7.0
 requests==2.21.0
+Flask-MySQLdb==0.2.0
 
 
