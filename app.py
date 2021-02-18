@@ -60,7 +60,7 @@ def signing():
 		cursor.execute("SELECT password FROM users WHERE username='"+username+"'")
 		record = cursor.fetchall()
 		if(len(record)==0):
-			message = "No account associated with this username"
+			message = "Incorrect Username or Password."
 			return render_template('login.html',message = message)
 		for word in record:
 			if password in word:
