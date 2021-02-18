@@ -5,6 +5,7 @@
   <title>CodePen - Sign in and Sign up  - Single Form</title>
   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300,600'>
   <link rel="stylesheet" href="{{url_for('static', filename='login.css')}}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
   <script type="text/javascript">
    var check = function()
     {
@@ -38,6 +39,9 @@
        <!-- Login form Start -->
        
         <div class="login-form">
+          {% if message %}
+            <h5 class="animated rubberBand"><strong>{{message}}</strong></h5>
+          {% endif %}
          <h3>Log In</h3>
          <div class="form-group">
            <input type="text" placeholder="Enter your Username" name="username" class="form-control" required>

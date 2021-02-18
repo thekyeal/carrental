@@ -61,7 +61,7 @@ def signing():
 		record = cursor.fetchall()
 		if(len(record)==0):
 			message = "No account associated with this username"
-			return render_template('index.html')
+			return render_template('login.html',message = message)
 		for word in record:
 			if password in word:
 				return redirect("/welcome")
