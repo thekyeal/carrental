@@ -1,6 +1,7 @@
 from flask import Flask, render_template , request,redirect
 from flask_mysqldb import MySQL
 from flask_mail import Mail, Message
+from PIL import Image
 
 import random
 
@@ -29,9 +30,9 @@ def createaccount():
 	if request.method == 'POST':
 		message = "Account Created! Please check your email for your login credentials"
 		fail = "Error in creating account, please try again"
-		username = request.form['username']
+		name = request.form['username']
 		userID = random.randint(0,100)
-		x = username.split()
+		x = name.split()
 		fname = x[0]
 		lname = x[1]
 		username = fname[0:3] + lname[0:3] + str(userID)
@@ -42,7 +43,7 @@ def createaccount():
 		conn = mysql.connect
 		cursor = conn.cursor()
 		try:
-			cursor.execute("Insert Into users(username,password,colour,email_address) VALUES ('"+ username +"','"+ password + "', '"+ colour + "', '"+ email +"')")
+			cursor.execute("Insert Into users(username,password,colour,email_address,fullname) VALUES ('"+ username +"','"+ password + "', '"+ colour + "', '"+ email +"','"+name+"')")
 			conn.commit()
 			msg = Message("Your userID is: "+username+" and password is: "+password+" Feel free to login to you account at https://universalrentals.herokuapp.com/login", sender="urentalstt@gmail.com", recipients=[email])
 			return render_template('index.html')
@@ -71,6 +72,14 @@ def signing():
 @app.route("/profile")
 def showpage():
 	return render_template('profile.html')
+
+@app.route("/profilepic", methods=['GET','POST'])
+def savepic():
+    if request.method == 'POST':
+        username = str(request.form['username'])
+        pict = str(request.form['myImage'])
+    return render_template('profile.html')
+
 
 
 if __name__ == '__main__':
