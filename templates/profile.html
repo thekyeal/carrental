@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Account</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="{{ url_for('static',filename='stylea.css')}}">
+    <!--===============================================================================================-->  
+  <link rel="icon" type="image/png" href="{{ url_for('static',filename='images/icons/favicon.ico')}}"/>
+<!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css')}}">
+<!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='fonts/font-awesome-4.7.0/css/font-awesome.min.css')}}">
+<!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/animate/animate.css')}}">
+<!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/select2/select2.min.css')}}">
+<!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/perfect-scrollbar/perfect-scrollbar.css')}}">
+<!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='util.css')}}">
+
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" type= "text/css" href="{{ url_for ('static', filename='fonts/icomoon/style.css')}}">
+  <link rel="stylesheet" type= "text/css" href= "{{ url_for('static', filename='bootstrap.min.css')}}">
+  <link rel="stylesheet" type= "text/css" href= "{{ url_for('static', filename='bootstrap-datepicker.css')}}">
+  <link rel="stylesheet" type= "text/css" href= "{{ url_for('static', filename='jquery.fancybox.min.css')}}">
+  <link rel="stylesheet" type= "text/css" href= "{{ url_for('static', filename='owl.carousel.min.css')}}">
+  <link rel="stylesheet" type= "text/css" href= "{{ url_for('static', filename='owl.theme.default.min.css')}}">
+  <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='fonts/flaticon/font/flaticon.css')}}">
+  <link rel="stylesheet" type= "text/css" href= "{{ url_for('static', filename='aos.css')}}">
+
+  <link href= "{{ url_for('static',filename='vendor/icofont/icofont.min.css')}}" rel="stylesheet">
+  <link href= "{{ url_for('static',filename='vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
+  <link href= "{{ url_for('static',filename='vendor/remixicon/remixicon.css')}}" rel="stylesheet">
+  <link href= "{{ url_for('static',filename='vendor/venobox/venobox.css')}}" rel="stylesheet">
+
+  <script src="{{ url_for('static',filename='vendor/jquery/jquery.min.js')}}"></script>
+  <script src="{{ url_for('static',filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{ url_for('static',filename='vendor/jquery.easing/jquery.easing.min.js')}}"></script>
+  <script src="{{ url_for('static',filename='vendor/php-email-form/validate.js')}}"></script>
+  <script src="{{ url_for('static',filename='vendor/waypoints/jquery.waypoints.min.js')}}"></script>
+  <script src="{{ url_for('static',filename='vendor/counterup/counterup.min.js')}}"></script>
+  <script src="{{ url_for('static',filename='vendor/isotope-layout/isotope.pkgd.min.js')}}"></script>
+  <script src="{{ url_for('static',filename='vendor/venobox/venobox.min.js')}}"></script>
+  <script src="{{ url_for('static',filename='vendor/owl.carousel/owl.carousel.min.js')}}"></script>
+  <script src="{{ url_for('static',filename='vendor/aos/aos.js')}}"></script>
+  <script src="{{ url_for('static',filename='js/main.js')}}"></script>
+
+<!--===============================================================================================-->
+
+  </head>
+  <body style="background-color:#A0A0A0;" >
+		
+		<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar">
+				<div class="custom-menu">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+	        </button>
+        </div>
+	  		<div class="img bg-wrap text-center py-4" style="background-image: url(../static/images/bg_2.jpg);">
+	  			<div class="user-logo">
+	  				<div class="img" style="background-image: url(../static/images/logo.jpg);"></div>
+	  				<h3>Catriona Henderson</h3>
+	  			</div>
+	  		</div>
+        <ul class="list-unstyled components mb-5">
+          <li class="active">
+            <a href="#"><span class="#"></span>Account Details</a>
+          </li>
+           <li>
+            <a href="#"><span class="fa fa-user mr-3"></span>Username</a>
+          </li>
+          <li>
+              <a href="#"><span class="fa fa-envelope mr-3 "><small class="d-flex align-items-center justify-content-center"></small></span> Email Address</a>
+          </li>
+          <li>
+            <a href="#"><span class="fa fa-gift mr-3"></span> Redeem Points</a>
+          </li>
+          <li>
+            <a href="#"><span class="fa fa-support mr-3"></span> Support</a>
+          </li>
+          <li>
+            <a href="#"><span class="fa fa-sign-out mr-3"></span> Sign Out</a>
+          </li>
+        </ul>
+
+    	</nav>
+
+        <!-- Page Content  --> 
+      <div id="content" class="p-4 p-md-5 pt-5">
+        
+        <header style="margin-left: 18%; margin-top: 1%;" id="header" class="fixed-top d-flex align-items-center">
+          <div class="container">
+            <div class="header-container d-flex align-items-center">
+              <div class="logo mr-auto">
+                <h1 class="text-light"><a href="index.html"><span>Bethany</span></a></h1>
+                <!-- Uncomment below if you prefer to use an image logo -->
+                <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+              </div>
+      
+              <nav class="nav-menu d-none d-lg-block">
+                <ul>
+                  <li class="active"><a href="#">Home</a></li>
+                  <li><a href="#about">About</a></li>
+                  <li><a href="#services">Services</a></li>
+                  <li><a href="#portfolio">Portfolio</a></li>
+                  <li><a href="#team">Team</a></li>
+                  <li class="drop-down"><a href="">Drop Down</a>
+                    <ul>
+                      <li><a href="#">Drop Down 1</a></li>
+                      <li class="drop-down"><a href="#">Drop Down 2</a>
+                        <ul>
+                          <li><a href="#">Deep Drop Down 1</a></li>
+                          <li><a href="#">Deep Drop Down 2</a></li>
+                          <li><a href="#">Deep Drop Down 3</a></li>
+                          <li><a href="#">Deep Drop Down 4</a></li>
+                          <li><a href="#">Deep Drop Down 5</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="#">Drop Down 3</a></li>
+                      <li><a href="#">Drop Down 4</a></li>
+                      <li><a href="#">Drop Down 5</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#contact">Contact</a></li>
+      
+                  <li class="get-started"><a href="#about">Get Started</a></li>
+                </ul>
+              </nav><!-- .nav-menu -->
+            </div><!-- End Header Container -->
+          </div>
+        </header>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="jumbotron jumbotron-fluid">
+          <div class="container">
+            <h1 class="display-4" style="text-align: center;">Welcome Username </h1>
+            <p class="lead" style="text-align: center;"">Below is a table of your Car Rental history thank you for using us!</p>
+          </div>
+        </div>
+        <br>
+    
+ 
+  
+
+        <div  class="table100 ver3 m-b-110">
+          <div class="table100-head">
+            <table>
+              <thead>
+                <tr class="row100 head">
+                  <th class="cell100 column1"><strong>Car Rented</strong></th>
+                  <th class="cell100 column2"><strong>Duration</strong></th>
+                  <th class="cell100 column3"><strong>Category</strong></th>
+                  <th class="cell100 column4"><strong>Points Earned</strong><th>
+                  <th class="cell100 column5"><strong>Total</strong></th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+
+          <div class="table100-body js-pscroll">
+            <table>
+              <tbody>
+                <tr class="row100 body">
+                  <td class="cell100 column1">Mercedes</td>
+                  <td class="cell100 column2">5 Days</td>
+                  <td class="cell100 column3">Formal Event</td>
+                  <td class="cell100 column4">500</td>
+                  <td class="cell100 column5">$1500</td>
+                </tr>
+                <tr class="row100 body">
+                  <td class="cell100 column1">Mind & Body</td>
+                  <td class="cell100 column2">Yoga</td>
+                  <td class="cell100 column3">8:00 AM - 9:00 AM</td>
+                  <td class="cell100 column4">Adam Stewart</td>
+                  <td class="cell100 column5">15</td>
+                </tr>
+
+                <tr class="row100 body">
+                  <td class="cell100 column1">Crit Cardio</td>
+                  <td class="cell100 column2">Gym</td>
+                  <td class="cell100 column3">9:00 AM - 10:00 AM</td>
+                  <td class="cell100 column4">Aaron Chapman</td>
+                  <td class="cell100 column5">10</td>
+                </tr>
+
+                <tr class="row100 body">
+                  <td class="cell100 column1">Wheel Pose Full Posture</td>
+                  <td class="cell100 column2">Yoga</td>
+                  <td class="cell100 column3">7:00 AM - 8:30 AM</td>
+                  <td class="cell100 column4">Donna Wilson</td>
+                  <td class="cell100 column5">15</td>
+                </tr>
+
+                <tr class="row100 body">
+                  <td class="cell100 column1">Playful Dancer's Flow</td>
+                  <td class="cell100 column2">Yoga</td>
+                  <td class="cell100 column3">8:00 AM - 9:00 AM</td>
+                  <td class="cell100 column4">Donna Wilson</td>
+                  <td class="cell100 column5">10</td>
+                </tr>
+
+                <tr class="row100 body">
+                  <td class="cell100 column1">Zumba Dance</td>
+                  <td class="cell100 column2">Dance</td>
+                  <td class="cell100 column3">5:00 PM - 7:00 PM</td>
+                  <td class="cell100 column4">Donna Wilson</td>
+                  <td class="cell100 column5">20</td>
+                </tr>
+
+                <tr class="row100 body">
+                  <td class="cell100 column1">Cardio Blast</td>
+                  <td class="cell100 column2">Gym</td>
+                  <td class="cell100 column3">5:00 PM - 7:00 PM</td>
+                  <td class="cell100 column4">Randy Porter</td>
+                  <td class="cell100 column5">10</td>
+                </tr>
+
+                <tr class="row100 body">
+                  <td class="cell100 column1">Pilates Reformer</td>
+                  <td class="cell100 column2">Gym</td>
+                  <td class="cell100 column3">8:00 AM - 9:00 AM</td>
+                  <td class="cell100 column4">Randy Porter</td>
+                  <td class="cell100 column5">10</td>
+                </tr>
+
+                <tr class="row100 body">
+                  <td class="cell100 column1">Supple Spine and Shoulders</td>
+                  <td class="cell100 column2">Yoga</td>
+                  <td class="cell100 column3">6:30 AM - 8:00 AM</td>
+                  <td class="cell100 column4">Randy Porter</td>
+                  <td class="cell100 column5">15</td>
+                </tr>
+
+                <tr class="row100 body">
+                  <td class="cell100 column1">Yoga for Divas</td>
+                  <td class="cell100 column2">Yoga</td>
+                  <td class="cell100 column3">9:00 AM - 11:00 AM</td>
+                  <td class="cell100 column4">Donna Wilson</td>
+                  <td class="cell100 column5">20</td>
+                </tr>
+
+                <tr class="row100 body">
+                  <td class="cell100 column1">Virtual Cycle</td>
+                  <td class="cell100 column2">Gym</td>
+                  <td class="cell100 column3">8:00 AM - 9:00 AM</td>
+                  <td class="cell100 column4">Randy Porter</td>
+                  <td class="cell100 column5">20</td>
+                </tr>
+
+                <tr class="row100 body">
+                  <td class="cell100 column1">Virtual Cycle</td>
+                  <td class="cell100 column2">Gym</td>
+                  <td class="cell100 column3">8:00 AM - 9:00 AM</td>
+                  <td class="cell100 column4">Randy Porter</td>
+                  <td class="cell100 column5">20</td>
+                </tr>
+
+                <tr class="row100 body">
+                  <td class="cell100 column1">Virtual Cycle</td>
+                  <td class="cell100 column2">Gym</td>
+                  <td class="cell100 column3">8:00 AM - 9:00 AM</td>
+                  <td class="cell100 column4">Randy Porter</td>
+                  <td class="cell100 column5">20</td>
+                </tr>
+
+                <tr class="row100 body">
+                  <td class="cell100 column1">Virtual Cycle</td>
+                  <td class="cell100 column2">Gym</td>
+                  <td class="cell100 column3">8:00 AM - 9:00 AM</td>
+                  <td class="cell100 column4">Randy Porter</td>
+                  <td class="cell100 column5">20</td>
+                </tr>
+
+                <tr class="row100 body">
+                  <td class="cell100 column1">Virtual Cycle</td>
+                  <td class="cell100 column2">Gym</td>
+                  <td class="cell100 column3">8:00 AM - 9:00 AM</td>
+                  <td class="cell100 column4">Randy Porter</td>
+                  <td class="cell100 column5">20</td>
+                </tr>
+
+                <tr class="row100 body">
+                  <td class="cell100 column1">Virtual Cycle</td>
+                  <td class="cell100 column2">Gym</td>
+                  <td class="cell100 column3">8:00 AM - 9:00 AM</td>
+                  <td class="cell100 column4">Randy Porter</td>
+                  <td class="cell100 column5">20</td>
+                </tr>
+
+                <tr class="row100 body">
+                  <td class="cell100 column1">Virtual Cycle</td>
+                  <td class="cell100 column2">Gym</td>
+                  <td class="cell100 column3">8:00 AM - 9:00 AM</td>
+                  <td class="cell100 column4">Randy Porter</td>
+                  <td class="cell100 column5">20</td>
+                </tr>
+
+                <tr class="row100 body">
+                  <td class="cell100 column1">Virtual Cycle</td>
+                  <td class="cell100 column2">Gym</td>
+                  <td class="cell100 column3">8:00 AM - 9:00 AM</td>
+                  <td class="cell100 column4">Randy Porter</td>
+                  <td class="cell100 column5">20</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+       
+      
+    </div>
+  </div>
+
+
+<!--===============================================================================================-->  
+  <script src="{{ url_for('static',filename='vendor/jquery/jquery-3.2.1.min.js')}}"></script>
+<!--===============================================================================================-->
+  <script src="{{ url_for('static',filename='vendor/bootstrap/js/popper.js')}}"></script>
+  <script src="{{ url_for('static',filename='vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+<!--===============================================================================================-->
+  <script src="{{ url_for('static',filename='vendor/select2/select2.min.js')}}"></script>
+<!--===============================================================================================-->
+  <script src="{{ url_for('static',filename='vendor/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
+  <script>
+    $('.js-pscroll').each(function(){
+      var ps = new PerfectScrollbar(this);
+
+      $(window).on('resize', function(){
+        ps.update();
+      })
+    });
+      
+    
+  </script>
+<!--===============================================================================================-->
+  <script src="{{ url_for('static',filename='js/maintable.js')}}"></script>
+      </div>
+		
+
+    <script src="{{ url_for('static',filename='js/jquery.min.js')}}"></script>
+    <script src="{{ url_for('static',filename='js/popper.js')}}"></script>
+    <script src="{{ url_for('static',filename='js/bootstrap.min.js')}}"></script>
+    <script src="{{ url_for('static',filename='js/maina.js')}}"></script>
+  </body>
+</html>
+

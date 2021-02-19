@@ -60,16 +60,18 @@ def signing():
 		cursor.execute("SELECT password FROM users WHERE username='"+username+"'")
 		record = cursor.fetchall()
 		if(len(record)==0):
-			message = "Incorrect Username or Password."
+			message = "Username not found"
 			return render_template('login.html',message = message)
 		for word in record:
 			if password in word:
-				return redirect("/welcome")
-			return render_template('index.html')
+				return redirect("/profile")
+			message = "Password Incorrect"
+			return render_template('login.html',message = message)
 
-@app.route("/welcome")
+@app.route("/profile")
 def showpage():
-	return render_template('index.html')
+	return render_template('profile.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
