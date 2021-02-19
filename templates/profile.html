@@ -65,7 +65,7 @@
 	  		<div class="img bg-wrap text-center py-4" style="background-image: url(../static/images/bg_2.jpg);">
 	  			<div class="user-logo">
 	  				<div class="img" style="background-image: url(../static/images/logo.jpg);"></div>
-	  				<h3>Catriona Henderson</h3>
+	  				<h3>{{user[0][4]}}</h3>
 	  			</div>
 	  		</div>
         <ul class="list-unstyled components mb-5">
@@ -73,10 +73,10 @@
             <a href="#"><span class="#"></span>Account Details</a>
           </li>
            <li>
-            <a href="#"><span class="fa fa-user mr-3"></span>Username</a>
+            <a href="#"><span class="fa fa-user mr-3"></span>{{user[0][0]}}</a>
           </li>
           <li>
-              <a href="#"><span class="fa fa-envelope mr-3 "><small class="d-flex align-items-center justify-content-center"></small></span> Email Address</a>
+              <a href="#"><span class="fa fa-envelope mr-3 "><small class="d-flex align-items-center justify-content-center"></small></span> {{user[0][3]}}</a>
           </li>
           <li>
             <a href="#"><span class="fa fa-gift mr-3"></span> Redeem Points</a>
@@ -144,7 +144,7 @@
         <br>
         <div class="jumbotron jumbotron-fluid">
           <div class="container">
-            <h1 class="display-4" style="text-align: center;">Welcome Username </h1>
+            <h1 class="display-4" style="text-align: center;">Welcome {{user[0][4]}} </h1>
             <p class="lead" style="text-align: center;"">Below is a table of your Car Rental history thank you for using us!</p>
           </div>
         </div>
@@ -171,148 +171,13 @@
           <div class="table100-body js-pscroll">
             <table>
               <tbody>
+                {% for row in history %}
                 <tr class="row100 body">
-                  <td class="cell100 column1">Mercedes</td>
-                  <td class="cell100 column2">5 Days</td>
-                  <td class="cell100 column3">Formal Event</td>
-                  <td class="cell100 column4">500</td>
-                  <td class="cell100 column5">$1500</td>
+                  {% for cell in row %}
+                  <td class="cell100 column{{loop.index}}">{{cell}}</td>
+                  {% endfor %}
                 </tr>
-                <tr class="row100 body">
-                  <td class="cell100 column1">Mind & Body</td>
-                  <td class="cell100 column2">Yoga</td>
-                  <td class="cell100 column3">8:00 AM - 9:00 AM</td>
-                  <td class="cell100 column4">Adam Stewart</td>
-                  <td class="cell100 column5">15</td>
-                </tr>
-
-                <tr class="row100 body">
-                  <td class="cell100 column1">Crit Cardio</td>
-                  <td class="cell100 column2">Gym</td>
-                  <td class="cell100 column3">9:00 AM - 10:00 AM</td>
-                  <td class="cell100 column4">Aaron Chapman</td>
-                  <td class="cell100 column5">10</td>
-                </tr>
-
-                <tr class="row100 body">
-                  <td class="cell100 column1">Wheel Pose Full Posture</td>
-                  <td class="cell100 column2">Yoga</td>
-                  <td class="cell100 column3">7:00 AM - 8:30 AM</td>
-                  <td class="cell100 column4">Donna Wilson</td>
-                  <td class="cell100 column5">15</td>
-                </tr>
-
-                <tr class="row100 body">
-                  <td class="cell100 column1">Playful Dancer's Flow</td>
-                  <td class="cell100 column2">Yoga</td>
-                  <td class="cell100 column3">8:00 AM - 9:00 AM</td>
-                  <td class="cell100 column4">Donna Wilson</td>
-                  <td class="cell100 column5">10</td>
-                </tr>
-
-                <tr class="row100 body">
-                  <td class="cell100 column1">Zumba Dance</td>
-                  <td class="cell100 column2">Dance</td>
-                  <td class="cell100 column3">5:00 PM - 7:00 PM</td>
-                  <td class="cell100 column4">Donna Wilson</td>
-                  <td class="cell100 column5">20</td>
-                </tr>
-
-                <tr class="row100 body">
-                  <td class="cell100 column1">Cardio Blast</td>
-                  <td class="cell100 column2">Gym</td>
-                  <td class="cell100 column3">5:00 PM - 7:00 PM</td>
-                  <td class="cell100 column4">Randy Porter</td>
-                  <td class="cell100 column5">10</td>
-                </tr>
-
-                <tr class="row100 body">
-                  <td class="cell100 column1">Pilates Reformer</td>
-                  <td class="cell100 column2">Gym</td>
-                  <td class="cell100 column3">8:00 AM - 9:00 AM</td>
-                  <td class="cell100 column4">Randy Porter</td>
-                  <td class="cell100 column5">10</td>
-                </tr>
-
-                <tr class="row100 body">
-                  <td class="cell100 column1">Supple Spine and Shoulders</td>
-                  <td class="cell100 column2">Yoga</td>
-                  <td class="cell100 column3">6:30 AM - 8:00 AM</td>
-                  <td class="cell100 column4">Randy Porter</td>
-                  <td class="cell100 column5">15</td>
-                </tr>
-
-                <tr class="row100 body">
-                  <td class="cell100 column1">Yoga for Divas</td>
-                  <td class="cell100 column2">Yoga</td>
-                  <td class="cell100 column3">9:00 AM - 11:00 AM</td>
-                  <td class="cell100 column4">Donna Wilson</td>
-                  <td class="cell100 column5">20</td>
-                </tr>
-
-                <tr class="row100 body">
-                  <td class="cell100 column1">Virtual Cycle</td>
-                  <td class="cell100 column2">Gym</td>
-                  <td class="cell100 column3">8:00 AM - 9:00 AM</td>
-                  <td class="cell100 column4">Randy Porter</td>
-                  <td class="cell100 column5">20</td>
-                </tr>
-
-                <tr class="row100 body">
-                  <td class="cell100 column1">Virtual Cycle</td>
-                  <td class="cell100 column2">Gym</td>
-                  <td class="cell100 column3">8:00 AM - 9:00 AM</td>
-                  <td class="cell100 column4">Randy Porter</td>
-                  <td class="cell100 column5">20</td>
-                </tr>
-
-                <tr class="row100 body">
-                  <td class="cell100 column1">Virtual Cycle</td>
-                  <td class="cell100 column2">Gym</td>
-                  <td class="cell100 column3">8:00 AM - 9:00 AM</td>
-                  <td class="cell100 column4">Randy Porter</td>
-                  <td class="cell100 column5">20</td>
-                </tr>
-
-                <tr class="row100 body">
-                  <td class="cell100 column1">Virtual Cycle</td>
-                  <td class="cell100 column2">Gym</td>
-                  <td class="cell100 column3">8:00 AM - 9:00 AM</td>
-                  <td class="cell100 column4">Randy Porter</td>
-                  <td class="cell100 column5">20</td>
-                </tr>
-
-                <tr class="row100 body">
-                  <td class="cell100 column1">Virtual Cycle</td>
-                  <td class="cell100 column2">Gym</td>
-                  <td class="cell100 column3">8:00 AM - 9:00 AM</td>
-                  <td class="cell100 column4">Randy Porter</td>
-                  <td class="cell100 column5">20</td>
-                </tr>
-
-                <tr class="row100 body">
-                  <td class="cell100 column1">Virtual Cycle</td>
-                  <td class="cell100 column2">Gym</td>
-                  <td class="cell100 column3">8:00 AM - 9:00 AM</td>
-                  <td class="cell100 column4">Randy Porter</td>
-                  <td class="cell100 column5">20</td>
-                </tr>
-
-                <tr class="row100 body">
-                  <td class="cell100 column1">Virtual Cycle</td>
-                  <td class="cell100 column2">Gym</td>
-                  <td class="cell100 column3">8:00 AM - 9:00 AM</td>
-                  <td class="cell100 column4">Randy Porter</td>
-                  <td class="cell100 column5">20</td>
-                </tr>
-
-                <tr class="row100 body">
-                  <td class="cell100 column1">Virtual Cycle</td>
-                  <td class="cell100 column2">Gym</td>
-                  <td class="cell100 column3">8:00 AM - 9:00 AM</td>
-                  <td class="cell100 column4">Randy Porter</td>
-                  <td class="cell100 column5">20</td>
-                </tr>
+                {% endfor %}
               </tbody>
             </table>
           </div>
