@@ -65,15 +65,26 @@ def signing():
 			return render_template('login.html',message = message)
 		for word in record:
 			if password in word:
-				userselect = "select * from users where username='"+username+"'"
-				cursor = mysql.connection.cursor()
-				cursor.execute(userselect)
-				records = cursor.fetchall()
+				cursor1 = mysql.connection.cursor()
+				cursor1.execute("select * from users where username='"+username+"'")
+				records = cursor1.fetchall()	
+				pointsq = "select pointsEarned from RentalHistory where username='"+username+"'"
+				cursor3 = mysql.connection.cursor()
+				cursor3.execute(pointsq)
+				pointsq = cursor3.fetchall()
+				totalpoints=sum(t[0] for t in pointsq)		
+				profileinfo = {
+					'username':records[0][0],
+					'fullname':records[0][4],
+					'email':records[0][3],
+					'totalpoints':totalpoints,
+					}
 				rentalhistory = "select carRented,duration,category,pointsEarned,totalCost from RentalHistory where username='"+username+"'"
-				cursor = mysql.connection.cursor()
-				cursor.execute(rentalhistory)
-				rentalhistory = cursor.fetchall()
-				return render_template('profile.html',user = records, history = rentalhistory)
+				cursor2 = mysql.connection.cursor()
+				cursor2.execute(rentalhistory)
+				rentalhistory = cursor2.fetchall()
+
+				return render_template('profile.html',user = profileinfo, history = rentalhistory)
 
 			message = "Password Incorrect"
 			return render_template('login.html',message = message)

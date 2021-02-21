@@ -65,7 +65,7 @@
 	  		<div class="img bg-wrap text-center py-4" style="background-image: url(../static/images/bg_2.jpg);">
 	  			<div class="user-logo">
 	  				<div class="img" style="background-image: url(../static/images/logo.jpg);"></div>
-	  				<h3>{{user[0][4]}}</h3>
+	  				<h3>{{user.fullname}}</h3>
 	  			</div>
 	  		</div>
         <ul class="list-unstyled components mb-5">
@@ -73,13 +73,13 @@
             <a href="#"><span class="#"></span>Account Details</a>
           </li>
            <li>
-            <a href="#"><span class="fa fa-user mr-3"></span>{{user[0][0]}}</a>
+            <a href="#"><span class="fa fa-user mr-3"></span>{{user.username}}</a>
           </li>
           <li>
-              <a href="#"><span class="fa fa-envelope mr-3 "><small class="d-flex align-items-center justify-content-center"></small></span> {{user[0][3]}}</a>
+              <a href="#"><span class="fa fa-envelope mr-3 "><small class="d-flex align-items-center justify-content-center"></small></span> {{user.email}}</a>
           </li>
           <li>
-            <a href="#"><span class="fa fa-gift mr-3"></span> Redeem Points</a>
+            <a href="#"><span class="fa fa-gift mr-3"></span> Total Points :<span style="color:#009970"> <b>{{user.totalpoints}} &#9733;</b></span></a>
           </li>
           <li>
             <a href="#"><span class="fa fa-support mr-3"></span> Support</a>
@@ -144,7 +144,7 @@
         <br>
         <div class="jumbotron jumbotron-fluid">
           <div class="container">
-            <h1 class="display-4" style="text-align: center;">Welcome {{user[0][4]}} </h1>
+            <h1 class="display-4" style="text-align: center;">Welcome {{user.username}} </h1>
             <p class="lead" style="text-align: center;"">Below is a table of your Car Rental history thank you for using us!</p>
           </div>
         </div>
