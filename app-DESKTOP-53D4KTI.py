@@ -11,8 +11,8 @@ app = Flask(__name__,
 
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'koolkat90210@gmail.com'
-app.config['MAIL_PASSWORD'] = 'bananapie1'
+app.config['MAIL_USERNAME'] = 'urentalstt@gmail.com'
+app.config['MAIL_PASSWORD'] = 'Ney#11Lou91'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
@@ -52,9 +52,7 @@ def createaccount():
 		try:
 			cursor.execute("Insert Into users(username,password,colour,email_address,fullname) VALUES ('"+ username +"','"+ password + "', '"+ colour + "', '"+ email +"','"+name+"')")
 			conn.commit()
-			msg = Message('Account Credentials', sender = 'urentalsttgmail.com', recipients = [email])
-			msg.body = "Your userID is: "+username+" and password is: "+password+" Feel free to login to you account at https://universalrentals.herokuapp.com/login"
-			mail.send(msg)
+			msg = Message("Your userID is: "+username+" and password is: "+password+" Feel free to login to you account at https://universalrentals.herokuapp.com/login", sender="urentalstt@gmail.com", recipients=[email])
 			return render_template('index.html')
 		except Exception as e:
 				print(e)
