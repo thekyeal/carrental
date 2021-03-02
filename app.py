@@ -4,6 +4,24 @@ from flask_mail import Mail, Message
 from PIL import Image
 
 import random
+import hashlib
+import os
+import binascii
+ 
+def hash_password(password):
+    salt = hashlib.sha256(os.urandom(60)).hexdigest().encode('ascii')
+    pwdhash = hashlib.pbkdf2_hmac('sha512', password.encode('utf-8'),salt, 100000)
+    pwdhash = binascii.hexlify(pwdhash)
+    return (salt + pwdhash).decode('ascii')
+ 
+def verify_password(stored_password, provided_password):
+    salt = stored_password[:64]
+    stored_password = stored_password[64:]
+    pwdhash = hashlib.pbkdf2_hmac('sha512',provided_password.encode('utf-8'),salt.encode('ascii'),100000)
+    pwdhash = binascii.hexlify(pwdhash).decode('ascii')
+    return pwdhash == stored_password
+
+
 
 app = Flask(__name__,
             static_folder='static',
@@ -47,13 +65,15 @@ def createaccount():
 		lname = x[1]
 		username = fname[0:3] + lname[0:3] + str(userID)
 		password = request.form['confirmpassword']
+		hashedpassword = hash_password(password)
+
 		colour = request.form['colour']
 		email = request.form['email']
 
 		conn = mysql.connect
 		cursor = conn.cursor()
 		try:
-			cursor.execute("Insert Into users(username,password,colour,email_address,fullname) VALUES ('"+ username +"','"+ password + "', '"+ colour + "', '"+ email +"','"+name+"')")
+			cursor.execute("Insert Into users(username,password,colour,email_address,fullname) VALUES ('"+ username +"','"+ hashedpassword + "', '"+ colour + "', '"+ email +"','"+name+"')")
 			conn.commit()
 			msg = Message('Account Credentials', sender = 'urentalsttgmail.com', recipients = [email])
 			msg.body = "Your userID is: "+username+" and password is: "+password+" Feel free to login to you account at https://universalrentals.herokuapp.com/login"
@@ -72,11 +92,11 @@ def signing():
 		cursor = conn.cursor()
 		cursor.execute("SELECT password FROM users WHERE username='"+username+"'")
 		record = cursor.fetchall()
+		passwordinput = record[0][0]
 		if(len(record)==0):
 			message = "Username not found"
 			return render_template('login.html',message = message)
-		for word in record:
-			if password in word:
+		if(verify_password(passwordinput, password)):
 				cursor1 = mysql.connection.cursor()
 				cursor1.execute("select * from users where username='"+username+"'")
 				records = cursor1.fetchall()	
@@ -95,11 +115,9 @@ def signing():
 				cursor2 = mysql.connection.cursor()
 				cursor2.execute(rentalhistory)
 				rentalhistory = cursor2.fetchall()
-
 				return render_template('profile.html',user = profileinfo, history = rentalhistory)
-
-			message = "Password Incorrect"
-			return render_template('login.html',message = message)
+		message = "Password Incorrect"
+		return render_template('login.html',message = message)
 
 @app.route("/profile")
 def showpage():

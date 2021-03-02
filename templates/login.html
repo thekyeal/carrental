@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - Sign in and Sign up  - Single Form</title>
+  <title>Sign in and Sign up</title>
   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300,600'>
   <link rel="stylesheet" href="{{url_for('static', filename='login.css')}}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
@@ -64,13 +64,14 @@
            <input type="text" name="username" placeholder="Enter Firstname and Lastname" class="form-control" required>
          </div>
          <div class="form-group">
-           <input type="text" name="email" placeholder="Email Address" class="form-control" required>
+           <input type="email" name="email" placeholder="Email Address" class="form-control" required>
          </div>
          <div class="form-group">
           <input type="text" name="colour" placeholder="Favourite Colour" class="form-control" required>
         </div>
          <div class="form-group">
-           <input type="password" name="password" id="pwdReg" placeholder="Password" class="form-control" required>
+          <label style="font-size: 10px; color: red;">8 characters 1 number , 1 lowercase and 1 upper case charcater </label>
+           <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" name="password" id="pwdReg" placeholder="Password" class="form-control" required>
          </div>
          <div class="form-group">
           <input type="password" id="cpwdReg" name="confirmpassword" placeholder="Confirm Password" class="form-control" onkeyup="check()" required>
