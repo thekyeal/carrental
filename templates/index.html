@@ -85,24 +85,24 @@
                     <ul class="list-unstyled">
                       <li>
                         <span>Duration</span>
-                        <span class="spec">4</span>
+                        <span class="spec"> <input type="number" min="1" id="days" placeholder="Days" style="width: 50px;"> Days </span>
                       </li>
                       <li>
                         <span>Car Requested</span>
-                        <span class="spec">6</span>
-                      </li>
-                      <li>
-                        <span>Number of Seats</span>
-                        <span class="spec">2 Suitcase/2 Bags</span>
-                      </li>
-                      <li>
-                        <span>Event</span>
-                        <span class="spec">Automatic</span>
+                        <span class="spec">
+                          <select name="cars" id="car">
+                            <option hidden disabled selected value>- Choose a car -</option>
+                            <option value="Sedan"> Sedan </option>
+                            <option value="Sports Car"> Sports Car </option>
+                            <option value="Hatchback"> Hatchback </option>
+                            <option value="Minivan"> Minivan </option>
+                          </select>
+                        </span>
                       </li>
                     </ul>
                     <div class="d-flex align-items-center bg-light p-3">
-                      <span>Total</span>
-                      <a href="contact.html" class="ml-auto btn btn-secondary">Estimate</a>
+                      <span id="cartotal" style="font-weight: bold; color: red;">Total</span>
+                      <button onclick="estimate()" class="ml-auto btn btn-secondary">Estimate</button>
                     </div>
                   </div>
                 </div>
@@ -127,25 +127,29 @@
                     </div>
                     <div class="row">
                       <div class="form-group col-md-3">
-                        <label for="cf-1">Where you from</label>
+                        <label for="cf-1">Email</label>
+                        <input type="email" id="cf-1" placeholder="email address" class="form-control">
+                      </div>
+                      <div class="form-group col-md-3">
+                        <label for="cf-1">From</label>
                         <input type="text" id="cf-1" placeholder="Your pickup address" class="form-control">
                       </div>
                       <div class="form-group col-md-3">
-                        <label for="cf-2">Where you go</label>
+                        <label for="cf-2">To</label>
                         <input type="text" id="cf-2" placeholder="Your drop-off address" class="form-control">
                       </div>
                       <div class="form-group col-md-3">
                         <label for="cf-3">Journey date</label>
-                        <input type="text" id="cf-3" placeholder="Journey Date" class="form-control datepicker px-3">
+                        <input type="date" id="cf-3" placeholder="Journey Date" class="form-control datepicker px-3">
                       </div>
                       <div class="form-group col-md-3">
                         <label for="cf-4">Return date</label>
-                        <input type="text" id="cf-4" placeholder="Return Date" class="form-control datepicker px-3">
+                        <input type="date" id="cf-4" placeholder="Return Date" class="form-control datepicker px-3">
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-lg-6">
-                        <input type="submit" value="Submit" class="btn btn-primary">
+                        <button onclick="pickup()" class="btn btn-primary"> Submit </button>
                       </div>
                     </div>
                   </form>
@@ -199,6 +203,62 @@
               </div>
               
         
+<script>
+  function estimate() 
+  {
+    let day = document.getElementById("days").value ;
+    let car = document.getElementById("car");
+    let selectedcar = car.options[car.selectedIndex].text;
+    dayprice = null
+    carprice = null
 
+    if(day > 1 && day <= 4)
+    {
+      dayprice = 100.00
+    }
+    else if(day >=5 )
+    {
+      dayprice = 85.00
+    }
+    else if( day = 1)
+    {
+      dayprice = 250
+    }
+
+    if (selectedcar == 'Sedan')
+    {
+      carprice = 30.00
+    }
+    else if(selectedcar == 'Hatchback')
+    {
+      carprice = 50.00
+    }
+    else if(selectedcar == 'Minivan')
+    {
+      carprice = 85.00
+    }
+    else if(selectedcar == 'Sports Car')
+    {
+      carprice = 90.00
+    }
+
+
+    if(dayprice==null || carprice==null)
+    {
+      alert("Please choose a day and a car to see your estimate")
+    }
+
+    rentaltotal = dayprice + carprice
+    document.getElementById("cartotal").innerHTML = '$'+rentaltotal+'.00';  
+    
+  }
+
+  function pickup()
+  {
+    alert("Thank you someone would be in contact with you shortly")
+  }
+
+
+</script>
 </body>
 </html>
