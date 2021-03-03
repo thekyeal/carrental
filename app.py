@@ -22,7 +22,6 @@ def verify_password(stored_password, provided_password):
     return pwdhash == stored_password
 
 
-
 app = Flask(__name__,
             static_folder='static',
             template_folder='templates')
@@ -115,7 +114,11 @@ def signing():
 				cursor2 = mysql.connection.cursor()
 				cursor2.execute(rentalhistory)
 				rentalhistory = cursor2.fetchall()
-				return render_template('profile.html',user = profileinfo, history = rentalhistory)
+				cursor4 = mysql.connection.cursor()
+				cursor4.execute("Select * from cars WHERE carStatus='Available'")
+				carinfo = cursor4.fetchall()
+				print(carinfo)
+				return render_template('profile.html',user = profileinfo, history = rentalhistory , car = carinfo)
 		message = "Password Incorrect"
 		return render_template('login.html',message = message)
 
@@ -129,6 +132,7 @@ def savepic():
         username = str(request.form['username'])
         pict = str(request.form['myImage'])
     return render_template('profile.html')
+
 
 
 
