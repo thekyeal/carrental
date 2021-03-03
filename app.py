@@ -1,4 +1,4 @@
-from flask import Flask, render_template , request,redirect
+from flask import Flask, render_template , request,redirect,session
 from flask_mysqldb import MySQL
 from flask_mail import Mail, Message
 from PIL import Image
@@ -36,8 +36,11 @@ app.config['MAIL_PASSWORD'] ='bananapie1'
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 
+app.config["SECRET_KEY"] = "OCML3BRawWEUeaxcuKHLpw"
+
 mysql = MySQL(app)
 mail = Mail(app)
+
 
 app.config['MYSQL_HOST'] = 'remotemysql.com'
 app.config['MYSQL_USER'] = 'M7faRQD6wL'
@@ -85,8 +88,9 @@ def createaccount():
 @app.route("/signin", methods=['GET','POST'])
 def signing():
 	if request.method == 'POST':
-		username = str(request.form['username'])
+		session['username'] = str(request.form['username'])
 		password = str(request.form['password'])
+		username = session['username']
 		conn = mysql.connect
 		cursor = conn.cursor()
 		cursor.execute("SELECT password FROM users WHERE username='"+username+"'")
@@ -110,6 +114,7 @@ def signing():
 					'email':records[0][3],
 					'totalpoints':totalpoints,
 					}
+				loggeduser = username;
 				rentalhistory = "select carRented,modelNo,duration,category,pointsEarned,totalCost from RentalHistory where username='"+username+"'"
 				cursor2 = mysql.connection.cursor()
 				cursor2.execute(rentalhistory)
@@ -117,7 +122,6 @@ def signing():
 				cursor4 = mysql.connection.cursor()
 				cursor4.execute("Select * from cars WHERE carStatus='Available'")
 				carinfo = cursor4.fetchall()
-				print(carinfo)
 				return render_template('profile.html',user = profileinfo, history = rentalhistory , car = carinfo)
 		message = "Password Incorrect"
 		return render_template('login.html',message = message)
@@ -132,6 +136,27 @@ def savepic():
         username = str(request.form['username'])
         pict = str(request.form['myImage'])
     return render_template('profile.html')
+
+@app.route("/rent", methods=['GET','POST'])
+def rent():
+	if request.method == 'POST':
+
+		carrented = str(request.form['carrented'])
+		modelnumber = str(request.form['modelnumber'])
+		duration = str(request.form['duration'])
+		category = str(request.form['category'])
+		carprice = str(request.form['carprice'])
+		pointsearned = int(duration) * 50
+		totalcost = float(carprice) + (int(duration) * 100)
+		username = session['username']
+		conn = mysql.connect
+		cursor5 = conn.cursor()
+		cursor5.execute("insert into RentalHistory(username,carRented,modelNo,duration,category,pointsEarned,totalcost) Values ('"+username+"','"+carrented+"','"+modelnumber+"','"+duration+"','"+category+"','"+str(pointsearned)+"','"+str(totalcost)+"') ")
+		conn.commit()
+
+
+
+		return render_template('index.html')
 
 
 
