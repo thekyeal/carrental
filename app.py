@@ -60,11 +60,9 @@ def createaccount():
 	if request.method == 'POST':
 		message = "Account Created! Please check your email for your login credentials"
 		fail = "Error in creating account, please try again"
-		name = request.form['username']
+		fname = request.form['fname']
+		lname = request.form['lname']
 		userID = random.randint(0,100)
-		x = name.split()
-		fname = x[0]
-		lname = x[1]
 		username = fname[0:3] + lname[0:3] + str(userID)
 		password = request.form['confirmpassword']
 		hashedpassword = hash_password(password)
