@@ -114,7 +114,6 @@ def signing():
 					'email':records[0][3],
 					'totalpoints':totalpoints,
 					}
-				loggeduser = username;
 				rentalhistory = "select carRented,modelNo,duration,category,pointsEarned,totalCost from RentalHistory where username='"+username+"'"
 				cursor2 = mysql.connection.cursor()
 				cursor2.execute(rentalhistory)
@@ -146,6 +145,7 @@ def rent():
 		duration = str(request.form['duration'])
 		category = str(request.form['category'])
 		carprice = str(request.form['carprice'])
+		carid = str(request.form['carid'])
 		pointsearned = int(duration) * 50
 		totalcost = float(carprice) + (int(duration) * 100)
 		username = session['username']
@@ -153,10 +153,35 @@ def rent():
 		cursor5 = conn.cursor()
 		cursor5.execute("insert into RentalHistory(username,carRented,modelNo,duration,category,pointsEarned,totalcost) Values ('"+username+"','"+carrented+"','"+modelnumber+"','"+duration+"','"+category+"','"+str(pointsearned)+"','"+str(totalcost)+"') ")
 		conn.commit()
+		conn = mysql.connect
+		cursor6 = conn.cursor()
+		sql = "UPDATE cars SET carStatus = 'Unavailable' WHERE carid = '"+carid+"'"
+		cursor6.execute(sql)
+		conn.commit()
+		pointsq = "select pointsEarned from RentalHistory where username='"+username+"'"
+		cursor3 = mysql.connection.cursor()
+		cursor3.execute(pointsq)
+		pointsq = cursor3.fetchall()
+		totalpoints=sum(t[0] for t in pointsq)		
+		conn = mysql.connect
+		cursor = conn.cursor()
+		cursor.execute("SELECT * FROM users WHERE username='"+username+"'")
+		records = cursor.fetchall()
+		profileinfo = {
+			'username':records[0][0],
+			'fullname':records[0][4],
+			'email':records[0][3],
+			'totalpoints':totalpoints,
+		}
+		rentalhistory = "select carRented,modelNo,duration,category,pointsEarned,totalCost from RentalHistory where username='"+username+"'"
+		cursor2 = mysql.connection.cursor()
+		cursor2.execute(rentalhistory)
+		rentalhistory = cursor2.fetchall()
+		cursor4 = mysql.connection.cursor()
+		cursor4.execute("Select * from cars WHERE carStatus='Available'")
+		carinfo = cursor4.fetchall()
+		return render_template('profile.html',user = profileinfo, history = rentalhistory , car = carinfo)
 
-
-
-		return render_template('index.html')
 
 
 

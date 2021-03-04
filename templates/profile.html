@@ -144,7 +144,7 @@
         <br>
         <div class="jumbotron jumbotron-fluid">
           <div class="container">
-            <h1 class="display-4" style="text-align: center;">Welcome {{user.username}} </h1>
+            <h1 class="display-4" style="text-align: center;">Welcome {{user.fullname}} </h1>
             <p class="lead" style="text-align: center;"">Below is a table of your Car Rental history thank you for using us!</p>
           </div>
         </div>
@@ -184,6 +184,10 @@
           </div>
         </div>
 
+        <br>
+        <h1 class="display-3; text-center" style="font-weight: bold; color: white;">Available cars to rent</h1>
+        <br>
+
         <div class="card-deck">
           {% for row in car %}
           <div class="card">
@@ -206,7 +210,10 @@
                 <div class="form-group">
                   <input type="number" class="form-control" name="duration"  placeholder="Rental Days">
                 </div>
-                <button type="submit" class="btn btn-primary">Rent Var</button>
+                <div class="form-group">
+                  <input type="hidden" class="form-control"  name="carid" value="{{car[loop.index-1][0]}}">
+                </div>
+                <button type="submit" class="btn btn-primary">Rent Car</button>
               </form>
             </div>
             <div class="card-footer">
