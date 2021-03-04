@@ -69,11 +69,12 @@ def createaccount():
 
 		colour = request.form['colour']
 		email = request.form['email']
+		fullname = fname +" "+lname
 
 		conn = mysql.connect
 		cursor = conn.cursor()
 		try:
-			cursor.execute("Insert Into users(username,password,colour,email_address,fullname) VALUES ('"+ username +"','"+ hashedpassword + "', '"+ colour + "', '"+ email +"','"+name+"')")
+			cursor.execute("Insert Into users(username,password,colour,email_address,fullname) VALUES ('"+ username +"','"+ hashedpassword + "', '"+ colour + "', '"+ email +"','"+fullname+"')")
 			conn.commit()
 			msg = Message('Account Credentials', sender = 'urentalsttgmail.com', recipients = [email])
 			msg.body = "Your userID is: "+username+" and password is: "+password+" Feel free to login to you account at https://universalrentals.herokuapp.com/login"
