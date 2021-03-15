@@ -179,10 +179,40 @@ def rent():
 		cursor4 = mysql.connection.cursor()
 		cursor4.execute("Select * from cars WHERE carStatus='Available'")
 		carinfo = cursor4.fetchall()
-		return render_template('profile.html',user = profileinfo, history = rentalhistory , car = carinfo)
+		
 
+@app.route("/adminlogin")
+def admin():
+	return render_template('adminlogin.html')
 
-
+@app.route("/adminsignin", methods=['GET','POST'])
+def adminsigning():
+	if request.method == 'POST':
+		session['username'] = str(request.form['username'])
+		password = str(request.form['password'])
+		username = session['username']
+		conn = mysql.connect
+		cursor = conn.cursor()
+		cursor.execute("SELECT password FROM users WHERE username='"+username+"'")
+		record = cursor.fetchall()
+		passwordinput = record[0][0]
+		if(len(record)==0):
+			message = "Username not found"
+			return render_template('adminlogin.html',message = message)
+		if(verify_password(passwordinput, password)):
+				cursor1 = mysql.connection.cursor()
+				cursor1.execute("select * from users where username='"+username+"'")
+				records = cursor1.fetchall()		
+				profileinfo = {
+					'username':records[0][0],
+					'fullname':records[0][4],
+					'email':records[0][3],
+					}
+				rentalhistory = "select username,carRented,duration,totalCost from RentalHistory "
+				cursor2 = mysql.connection.cursor()
+				cursor2.execute(rentalhistory)
+				rentalhistory = cursor2.fetchall()
+	return render_template('dashboard.html',history=rentalhistory)
 
 
 if __name__ == '__main__':

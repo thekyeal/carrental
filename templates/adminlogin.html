@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Sign in and Sign up</title>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300,600'>
+  <link rel="stylesheet" href="{{url_for('static', filename='login.css')}}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <script type="text/javascript">
+   var check = function()
+    {
+      if (document.getElementById('pwdReg').value ==document.getElementById('cpwdReg').value) 
+        {
+          document.getElementById('message').style.color = 'green';
+          document.getElementById('message').innerHTML = 'matching';
+        } else {
+            document.getElementById('message').style.color = 'red';
+            document.getElementById('message').innerHTML = 'not matching';
+        }
+    }
+  </script>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="login-page">
+  <div class="box">
+    <div class="left">
+      <h3>Hello Admin Feel free to login</h3>
+      <button type="button" class="register-btn">Login</button>
+    </div>
+    <div class="right">
+      <h3>Hello Admin Feel free to login</h3>
+      <button type="button" class="login-btn">Login</button>
+    </div>
+
+    <form class="login" action="/adminsignin" method="post">
+      <div class="form">
+       <!-- Login form Start -->
+       
+        <div class="login-form">
+          {% if message %}
+            <h5 style="color:red" class="animated rubberBand"><strong>{{message}}</strong></h5>
+          {% endif %}
+         <h3>Log In</h3>
+         <div class="form-group">
+           <input type="text" placeholder="Enter your Username" name="username" class="form-control" required>
+         </div>
+         <div class="form-group">
+           <input type="password" placeholder="Password*" name = "password" class="form-control" required>
+         </div>
+         <button type="submit" class="submit-btn">Login</button>
+       
+         <p><a href="#" class="register-btn">Register</a> | <a href="#" class="lost-pass-btn">Lost Your Password ?</a></p>
+       </div>
+      </form>
+       <!-- Login form End -->
+  <script  src="{{url_for('static',filename='js/login.js')}}"></script>
+
+</body>
+</html>
