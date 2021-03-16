@@ -212,7 +212,32 @@ def adminsigning():
 				cursor2 = mysql.connection.cursor()
 				cursor2.execute(rentalhistory)
 				rentalhistory = cursor2.fetchall()
-	return render_template('dashboard.html',history=rentalhistory)
+				numberofrents= "SELECT COUNT(*) FROM RentalHistory"
+				cursor7 = mysql.connection.cursor()
+				cursor7.execute(numberofrents)
+				rentotal = cursor7.fetchall()
+				cost = "select totalCost from RentalHistory"
+				cursor3 = mysql.connection.cursor()
+				cursor3.execute(cost)
+				costtotal = cursor3.fetchall()
+				totalcost=sum(t[0] for t in costtotal)
+				users= "SELECT COUNT(*) FROM users"
+				cursor8 = mysql.connection.cursor()
+				cursor8.execute(users)
+				numberofusers = cursor8.fetchall()
+				profileinfo = {
+					'users':numberofusers[0][0],
+					'rents':rentotal[0][0],
+					'sales':totalcost,
+							}
+				cost = "select username, SUM(totalCost) from RentalHistory group by username "
+				cursor9 = mysql.connection.cursor()
+				cursor9.execute(cost)
+				usertotals = cursor9.fetchall()
+
+				
+
+	return render_template('dashboard.html',history=rentalhistory, admininfo=profileinfo, userandtotal=usertotals)
 
 
 if __name__ == '__main__':
