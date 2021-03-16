@@ -234,10 +234,10 @@ def adminsigning():
 				cursor9 = mysql.connection.cursor()
 				cursor9.execute(cost)
 				usertotals = cursor9.fetchall()
-
-				
-
-	return render_template('dashboard.html',history=rentalhistory, admininfo=profileinfo, userandtotal=usertotals)
+				return render_template('dashboard.html',history=rentalhistory, admininfo=profileinfo, userandtotal=usertotals)
+		message = "Password Incorrect"
+		return render_template('adminlogin.html',message = message)
+		
 
 
 if __name__ == '__main__':
