@@ -240,12 +240,12 @@
                                     {% for row in userandtotal %}
                                     <li>
                                         <div class="call-chat">
-											<h5>{{row[1]}}</h5>
+											<h5>${{row[1]}}</h5>
                                         </div>
                                         <a href="javascript:void(0)" class="d-flex align-items-center"><img
                                                 src="plugins/images/users/varun.jpg" alt="user-img" class="img-circle">
                                             <div class="ms-2">
-                                                <span class="text-dark">${{row[0]}} </span>                                           
+                                                <span class="text-dark">{{row[0]}} </span>                                           
                                             </div>
                                         </a>
                                     </li>
@@ -292,9 +292,7 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer text-center"> 2021 © Ample Admin brought to you by <a
-                    href="https://www.wrappixel.com/">wrappixel.com</a>
-            </footer>
+            <footer class="footer text-center"> Universal Rentals  </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
             <!-- ============================================================== -->
