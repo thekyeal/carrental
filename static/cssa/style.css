@@ -20,6 +20,10 @@ File: scss
 .search-box .app-search .form-control {
   border-radius: 0px; }
 
+  .bg-light {
+    background-color: #f6f5f5 !important; }
+
+  
 .topbar .dropdown-menu .with-arrow > span {
   transform: rotate(45deg);
   -ms-transform: rotate(45deg);

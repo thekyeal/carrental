@@ -102,11 +102,11 @@ def signing():
 				cursor1 = mysql.connection.cursor()
 				cursor1.execute("select * from users where username='"+username+"'")
 				records = cursor1.fetchall()	
-				pointsq = "select pointsEarned from RentalHistory where username='"+username+"'"
+				pointsq = "select points from users where username='"+username+"'"
 				cursor3 = mysql.connection.cursor()
 				cursor3.execute(pointsq)
 				pointsq = cursor3.fetchall()
-				totalpoints=sum(t[0] for t in pointsq)		
+				totalpoints=pointsq[0][0]
 				profileinfo = {
 					'username':records[0][0],
 					'fullname':records[0][4],
@@ -138,52 +138,75 @@ def savepic():
 @app.route("/rent", methods=['GET','POST'])
 def rent():
 	if request.method == 'POST':
-
+		username = session['username']
+		pointsq = "select points from users where username='"+username+"'"
+		cursor3 = mysql.connection.cursor()
+		cursor3.execute(pointsq)
+		pointsq = cursor3.fetchall()
+		points = int(pointsq[0][0])
 		carrented = str(request.form['carrented'])
 		modelnumber = str(request.form['modelnumber'])
 		duration = str(request.form['duration'])
 		category = str(request.form['category'])
 		carprice = str(request.form['carprice'])
 		carid = str(request.form['carid'])
-		pointsearned = int(duration) * 50
-		totalcost = float(carprice) + (int(duration) * 100)
-		username = session['username']
-		conn = mysql.connect
-		cursor5 = conn.cursor()
-		cursor5.execute("insert into RentalHistory(username,carRented,modelNo,duration,category,pointsEarned,totalcost) Values ('"+username+"','"+carrented+"','"+modelnumber+"','"+duration+"','"+category+"','"+str(pointsearned)+"','"+str(totalcost)+"') ")
-		conn.commit()
-		conn = mysql.connect
-		cursor6 = conn.cursor()
-		sql = "UPDATE cars SET carStatus = 'Unavailable' WHERE carid = '"+carid+"'"
-		cursor6.execute(sql)
-		conn.commit()
-		pointsq = "select pointsEarned from RentalHistory where username='"+username+"'"
-		cursor3 = mysql.connection.cursor()
-		cursor3.execute(pointsq)
-		pointsq = cursor3.fetchall()
-		totalpoints=sum(t[0] for t in pointsq)		
-		conn = mysql.connect
-		cursor = conn.cursor()
-		cursor.execute("SELECT * FROM users WHERE username='"+username+"'")
-		records = cursor.fetchall()
-		profileinfo = {
-			'username':records[0][0],
-			'fullname':records[0][4],
-			'email':records[0][3],
-			'totalpoints':totalpoints,
+		
+		if (int(points)>50):
+			pointsused = str(request.form['points'])
+			if(pointsused==''):
+				pointsused = 0
+			totalcost = float(carprice) + (int(duration) * 100) - int(pointsused)
+			pointsearned = int(pointsused)
+			totalpoints = points - pointsearned
+			conn = mysql.connect
+			cursoru = conn.cursor()
+			sql = "UPDATE users SET points = '"+str(totalpoints)+"' WHERE username = '"+username+"'"
+			cursoru.execute(sql)
+			conn.commit()
+		else:
+			pointsused = 0
+			totalcost = float(carprice) + (int(duration) * 100) - int(pointsused)
+			pointsearned = int(duration) * 50
+			pointsearned = str(pointsearned)
+			conn = mysql.connect
+			cursoru = conn.cursor()
+			sql = "UPDATE users SET points = '"+pointsearned+"' WHERE username = '"+username+"'"
+			cursoru.execute(sql)
+			conn.commit()		
+	conn = mysql.connect
+	cursor5 = conn.cursor()
+	cursor5.execute("insert into RentalHistory(username,carRented,modelNo,duration,category,pointsEarned,totalcost) Values ('"+username+"','"+carrented+"','"+modelnumber+"','"+duration+"','"+category+"','"+str(pointsearned)+"','"+str(totalcost)+"') ")
+	conn.commit()
+	conn = mysql.connect
+	cursor6 = conn.cursor()
+	sql = "UPDATE cars SET carStatus = 'Unavailable' WHERE carid = '"+carid+"'"
+	cursor6.execute(sql)
+	conn.commit()		
+	conn = mysql.connect
+	cursor = conn.cursor()
+	cursor.execute("SELECT * FROM users WHERE username='"+username+"'")
+	records = cursor.fetchall()
+	profileinfo = {
+		'username':records[0][0],
+		'fullname':records[0][4],
+		'email':records[0][3],
+		'totalpoints':records[0][5],
 		}
-		rentalhistory = "select carRented,modelNo,duration,category,pointsEarned,totalCost from RentalHistory where username='"+username+"'"
-		cursor2 = mysql.connection.cursor()
-		cursor2.execute(rentalhistory)
-		rentalhistory = cursor2.fetchall()
-		cursor4 = mysql.connection.cursor()
-		cursor4.execute("Select * from cars WHERE carStatus='Available'")
-		carinfo = cursor4.fetchall()
+	rentalhistory = "select carRented,modelNo,duration,category,pointsEarned,totalCost from RentalHistory where username='"+username+"'"
+	cursorh = mysql.connection.cursor()
+	cursorh.execute(rentalhistory)
+	rentalhistory = cursorh.fetchall()
+	print(rentalhistory)
+	cursora = mysql.connection.cursor()
+	cursora.execute("Select * from cars WHERE carStatus='Available'")
+	carinfo = cursora.fetchall()
+	return render_template('profile.html',user = profileinfo, history = rentalhistory , car = carinfo)
 		
 
 @app.route("/adminlogin")
 def admin():
 	return render_template('adminlogin.html')
+
 
 @app.route("/adminsignin", methods=['GET','POST'])
 def adminsigning():
