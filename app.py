@@ -165,7 +165,7 @@ def rent():
 			conn.commit()
 		else:
 			pointsused = 0
-			totalcost = float(carprice) + (int(duration) * 100) - int(pointsused)
+			totalcost = float(carprice) + (int(duration) * 100) - pointsused
 			pointsearned = int(duration) * 50
 			pointsearned = str(pointsearned)
 			conn = mysql.connect
@@ -173,34 +173,19 @@ def rent():
 			sql = "UPDATE users SET points = '"+pointsearned+"' WHERE username = '"+username+"'"
 			cursoru.execute(sql)
 			conn.commit()		
-	conn = mysql.connect
-	cursor5 = conn.cursor()
-	cursor5.execute("insert into RentalHistory(username,carRented,modelNo,duration,category,pointsEarned,totalcost) Values ('"+username+"','"+carrented+"','"+modelnumber+"','"+duration+"','"+category+"','"+str(pointsearned)+"','"+str(totalcost)+"') ")
-	conn.commit()
-	conn = mysql.connect
-	cursor6 = conn.cursor()
-	sql = "UPDATE cars SET carStatus = 'Unavailable' WHERE carid = '"+carid+"'"
-	cursor6.execute(sql)
-	conn.commit()		
-	conn = mysql.connect
-	cursor = conn.cursor()
-	cursor.execute("SELECT * FROM users WHERE username='"+username+"'")
-	records = cursor.fetchall()
-	profileinfo = {
-		'username':records[0][0],
-		'fullname':records[0][4],
-		'email':records[0][3],
-		'totalpoints':records[0][5],
-		}
-	rentalhistory = "select carRented,modelNo,duration,category,pointsEarned,totalCost from RentalHistory where username='"+username+"'"
-	cursorh = mysql.connection.cursor()
-	cursorh.execute(rentalhistory)
-	rentalhistory = cursorh.fetchall()
-	print(rentalhistory)
-	cursora = mysql.connection.cursor()
-	cursora.execute("Select * from cars WHERE carStatus='Available'")
-	carinfo = cursora.fetchall()
-	return render_template('profile.html',user = profileinfo, history = rentalhistory , car = carinfo)
+		conn = mysql.connect
+		cursor5 = conn.cursor()
+		cursor5.execute("insert into RentalHistory(username,carRented,modelNo,duration,category,pointsEarned,totalcost) Values ('"+username+"','"+carrented+"','"+modelnumber+"','"+duration+"','"+category+"','"+str(pointsearned)+"','"+str(totalcost)+"') ")
+		conn.commit()
+		conn = mysql.connect
+		cursor6 = conn.cursor()
+		sql = "UPDATE cars SET carStatus = 'Unavailable' WHERE carid = '"+carid+"'"
+		cursor6.execute(sql)
+		conn.commit()	
+
+		notice = "car succesfully rented using "+str(pointsused)+" points thank you for using Universal Rentals"	
+		
+		return render_template('index.html')
 		
 
 @app.route("/adminlogin")
