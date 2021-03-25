@@ -76,7 +76,7 @@ def updatecarstatus(carid):
     cursor.execute("UPDATE cars SET carStatus = 'Unavailable' WHERE carid = '"+carid+"'")
     conn.commit()
 
-def getadminrentalhistory(username):
+def getadminrentalhistory():
     conn = mysql.connect
     cursor = conn.cursor()
     cursor.execute("select username,carRented,duration,totalCost from RentalHistory ")

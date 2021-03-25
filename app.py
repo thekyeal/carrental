@@ -17,15 +17,6 @@ app = Flask(__name__,
             static_folder='static',
             template_folder='templates')
 
-mail = Mail(app)
-
-app.config['MAIL_SERVER']='smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USERNAME'] ='koolkat90210@gmail.com'
-app.config['MAIL_DEFAULT_SENDER'] ='koolkat90210@gmail.com'
-app.config['MAIL_PASSWORD'] ='bananapie1'
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False
 
 app.config["SECRET_KEY"] = "OCML3BRawWEUeaxcuKHLpw"
 
@@ -64,7 +55,6 @@ def createaccount():
 		database.addnewuser(username,hashedpassword,colour,email,fullname)
 		msg = Message('Account Credentials', sender = 'urentalsttgmail.com', recipients = [email])
 		msg.body = "Your userID is: "+username+" and password is: "+password+" Feel free to login to you account at https://universalrentals.herokuapp.com/login"
-		mail.send(msg)
 	return render_template('index.html')
 
 
@@ -156,7 +146,7 @@ def adminsigning():
 		if(len(record)==0):
 			message = "Username not found"
 			return render_template('adminlogin.html',message = message)
-		if(database.verify_password(passwordinput, password)):
+		if(hashing.verify_password(passwordinput, password)):
 				records = database.getuserinfo(username)	
 				profileinfo = {
 					'username':records[0][0],
