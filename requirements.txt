@@ -25,3 +25,5 @@ requests==2.21.0
 Flask-MySQLdb==0.2.0
 Flask-Mail==0.9.1
 image==1.5.33
+Flask-MySQL==1.5.2
+flask-mysql-connector==1.1.0

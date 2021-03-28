@@ -28,6 +28,19 @@ def getuserinfo(username):
     records = cursor.fetchall()
     return records
 
+def getadminlogin(username):
+    conn = mysql.connect
+    cursor = conn.cursor()
+    cursor.execute("select * from admin where adminID='"+username+"'")
+    records = cursor.fetchall()
+    return records
+
+def passwordselectoradmin(username):
+    conn = mysql.connect
+    cursor = conn.cursor()
+    cursor.execute("SELECT password FROM admin WHERE adminID='"+username+"'")
+    password = cursor.fetchall()
+    return password
 
 def passwordselector(username):
     conn = mysql.connect
@@ -35,6 +48,7 @@ def passwordselector(username):
     cursor.execute("SELECT password FROM users WHERE username='"+username+"'")
     password = cursor.fetchall()
     return password
+
 
 
 def getuserpoints(username):
@@ -111,4 +125,25 @@ def getcostbyuser():
     cursor.execute("select username, SUM(totalCost) from RentalHistory group by username ")
     usertotals = cursor.fetchall()
     return usertotals
+
+def getcars():
+    conn = mysql.connect
+    cursor = conn.cursor()
+    cursor.execute("select * from cars ")
+    cardata = cursor.fetchall()
+    return cardata
+
+def removecar(carid):
+    conn = mysql.connect
+    cursor = conn.cursor()
+    cursor.execute("delete from cars where carID ='"+carid+"'")
+    conn.commit()
+
+def getusers():
+    conn = mysql.connect
+    cursor = conn.cursor()
+    cursor.execute("select * from users ")
+    userdata = cursor.fetchall()
+    return userdata
+
 

@@ -86,9 +86,7 @@ def signing():
 		message = "Password Incorrect"
 		return render_template('login.html',message = message)
 
-@app.route("/profile")
-def showpage():
-	return render_template('profile.html')
+
 
 @app.route("/profilepic", methods=['GET','POST'])
 def savepic():
@@ -130,10 +128,21 @@ def rent():
 		return render_template('index.html')
 		
 
+@app.route("/adminprofile")
+def showpage():
+	username = session['username']
+	records = database.getadminlogin(username)	
+	profileinfo = {
+		'adminid':records[0][0],
+		'fullname':records[0][1],
+		'email':records[0][3],
+		'phonenumber':records[0][4]
+				}
+	return render_template('admininfo.html',profileinfo=profileinfo)
+
 @app.route("/adminlogin")
 def admin():
 	return render_template('adminlogin.html')
-
 
 @app.route("/adminsignin", methods=['GET','POST'])
 def adminsigning():
@@ -141,17 +150,18 @@ def adminsigning():
 		session['username'] = str(request.form['username'])
 		password = str(request.form['password'])
 		username = session['username']
-		record = database.passwordselector(username)
+		record = database.passwordselectoradmin(username)
 		passwordinput = record[0][0]
 		if(len(record)==0):
 			message = "Username not found"
 			return render_template('adminlogin.html',message = message)
-		if(hashing.verify_password(passwordinput, password)):
-				records = database.getuserinfo(username)	
+		if(password == passwordinput):
+				records = database.getadminlogin(username)	
 				profileinfo = {
-					'username':records[0][0],
-					'fullname':records[0][4],
-					'email':records[0][3],
+					'adminid':records[0][0],
+					'fullname':records[0][1],
+					'email':records[0][2],
+					'phonenumber':records[0][3]
 					}
 				rentalhistory = database.getadminrentalhistory()
 				rentotal = database.numberofrents()
@@ -167,6 +177,18 @@ def adminsigning():
 		message = "Password Incorrect"
 		return render_template('adminlogin.html',message = message)
 		
+@app.route("/removecar")
+def removecar():
+	username = session['username']
+	records = database.getcars()
+	return render_template('removecar.html',car=records)
+
+
+@app.route("/removecustomer")
+def removecustomer():
+	username = session['username']
+	users = database.getusers()
+	return render_template('removeperson.html',userdata=users)
 
 
 if __name__ == '__main__':
