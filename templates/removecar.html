@@ -5,18 +5,21 @@
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
       <h1 class="display-4">Car Deletion</h1>
+      {% if message %}
+      <h5 style="color:red" class="animated rubberBand"><strong>{{message}}</strong></h5>
+    {% endif %}
       <p class="lead">Removing a car would permanently remove it from the database.</p>
     </div>
   </div>
 
 
-<div class="card-deck">
+<div class="card-deck" >
     {% for row in car %}
     <div class="card">
       <img class="card-img-top" width="130" height="130"src="static/images/{{car[loop.index-1][0]}}.png" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">{{car[loop.index-1][1]}}</h5>
-          <form  action="/remove" method="post">
+          <form  action="/removevehicle" method="post">
           <div class="form-group">
             <input type="text" class="form-control"  name="carrented" placeholder="{{car[loop.index-1][1]}}" value="{{car[loop.index-1][1]}}" disabled>
           </div>

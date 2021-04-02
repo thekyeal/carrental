@@ -1,24 +1,20 @@
 from flask import Flask, render_template , request,redirect,session
 from flask_mysqldb import MySQL
+from flask_sqlalchemy  import SQLAlchemy
 from flask_mail import Mail, Message
 from PIL import Image
 
 import random
-
-
  ## modules 
 import hashing 
 import database
- 
-
-
-
 app = Flask(__name__,
             static_folder='static',
             template_folder='templates')
 
 
-app.config["SECRET_KEY"] = "OCML3BRawWEUeaxcuKHLpw"
+app.secret_key = 'any random string'
+
 
 mysql = MySQL(app)
 mail = Mail(app)
@@ -29,12 +25,25 @@ app.config['MYSQL_USER'] = 'M7faRQD6wL'
 app.config['MYSQL_PASSWORD'] = 'Yg0gCXFrly'
 app.config['MYSQL_DB'] = 'M7faRQD6wL'
 
+
 @app.route('/')
-def index():
-    return render_template('index.html')
+def home():
+	packages = database.loadpackages()	
+	return render_template('index.html',packages=packages)
+	
+@app.route('/home')
+def homepage():
+	username = session['username']
+	packages = database.loadpackages()	
+	return render_template('index.html',packages=packages)
+
+
+@app.route("/test")
+def work():
+	return render_template('index.html')
 
 @app.route('/login')
-def login():
+def loginform():
     return render_template('login.html')
 
 @app.route("/createaccount", methods=['POST'])
@@ -60,6 +69,20 @@ def createaccount():
 
 @app.route("/signin", methods=['GET','POST'])
 def signing():
+	if 'username' in session:
+		username = session['username']
+		records = database.getuserinfo(username)
+		totalpoints= database.getuserpoints(username)
+		profileinfo = {
+			'username':records[0][0],
+			'fullname':records[0][4],
+			'email':records[0][3],
+			'totalpoints':totalpoints,
+			}
+		rentalhistory = database.getrentalhistory(username)
+		carinfo = database.availablecars()
+		return render_template('profile.html',user = profileinfo, history = rentalhistory , car = carinfo)
+
 	if request.method == 'POST':
 		session['username'] = str(request.form['username'])
 		password = str(request.form['password'])
@@ -80,11 +103,14 @@ def signing():
 					'email':records[0][3],
 					'totalpoints':totalpoints,
 					}
+				username = session['username']
 				rentalhistory = database.getrentalhistory(username)
 				carinfo = database.availablecars()
-				return render_template('profile.html',user = profileinfo, history = rentalhistory , car = carinfo)
+				return render_template('profile.html',user = profileinfo, history = rentalhistory , car = carinfo, username=username)
 		message = "Password Incorrect"
 		return render_template('login.html',message = message)
+	message = "Feel free to login"
+	return render_template('login.html',message = message)
 
 
 
@@ -184,12 +210,101 @@ def removecar():
 	return render_template('removecar.html',car=records)
 
 
+
+@app.route("/removevehicle", methods=['GET','POST'])
+def removalofcar():
+	if request.method == 'POST':
+		car =str(request.form['carid'])
+		database.removecar(car)
+		prompt = "Car deleted"
+		records = database.getcars()
+	return render_template('removecar.html',message=prompt,car=records)
+
+
+
 @app.route("/removecustomer")
 def removecustomer():
 	username = session['username']
 	users = database.getusers()
 	return render_template('removeperson.html',userdata=users)
 
+@app.route("/removeperson", methods=['GET','POST'])
+def removalofperson():
+	if request.method == 'POST':
+		cusid =str(request.form['personid'])
+		database.removepersonel(cusid)
+		message = "User deleted"
+		users = database.getusers()
+	return render_template('removeperson.html',message=message,userdata=users)
+
+
+
+@app.route("/addcar")
+def addcar():
+	return render_template('addcar.html')
+
+@app.route("/addpackage",methods=['GET','POST'])
+def addpackage():
+	if request.method == 'POST':
+		username = session['username']
+		packagename =str(request.form['packageID'])
+		carid = str(request.form['carID'])
+		carname = str(request.form['carname'])
+		modelnumber = str(request.form['modelnumber'])
+		duration = str(request.form['duration'])
+		category = str(request.form['category'])
+		points = str(request.form['points'])
+		totalcost = str(request.form['cost'])
+		database.insertpackage(packagename,carid,carname,modelnumber,duration,category,totalcost,points)
+		message = "Package added!"
+		return render_template('addpackage.html',message=message)
+	if request.method == 'GET':
+		return render_template('addpackage.html')
+
+
+@app.route("/rentpackage", methods=['GET','POST'])
+def rentpackage():
+	if request.method == 'POST':
+		username = session['username']
+		carrented = str(request.form['carrented'])
+		modelnumber = str(request.form['modelno'])
+		duration = str(request.form['duration'])
+		category = str(request.form['category'])
+		points = str(request.form['points'])
+		totalcost = str(request.form['cost'])	
+		database.insertrental(username,carrented,modelnumber,duration,category,points,totalcost)	
+		packages = database.loadpackages()	
+		rented = 'rented'
+		return render_template('index.html',packages=packages,rented=rented,user=username)
+
+@app.route("/loginuser", methods=['GET','POST'])
+def login():
+	if request.method == 'POST':
+		session['username'] = str(request.form['username'])
+		password = str(request.form['password'])
+		username = session['username']
+		record = database.getuserinfo(username)
+		if(len(record)==0):
+			message = "Username not found"
+			packages = database.loadpackages()	
+			return render_template('index.html',message = message,packages=packages)
+		
+		passwordinput = record[0][1]			
+		if(hashing.verify_password(passwordinput, password)):
+			session['username'] = username
+			user = session['username']
+			packages = database.loadpackages()			
+			return render_template('index.html',user = user,packages=packages)
+	message = "Password Incorrect"
+	packages = database.loadpackages()	
+	return render_template('index.html',message = message,packages=packages)
+		
+@app.route("/singout")
+def singout():
+	session.pop('username', None)
+	packages = database.loadpackages()	
+	return render_template('index.html',packages=packages)
+	
 
 if __name__ == '__main__':
     app.run(debug=True)

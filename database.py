@@ -136,8 +136,10 @@ def getcars():
 def removecar(carid):
     conn = mysql.connect
     cursor = conn.cursor()
+    cursor.execute("SET foreign_key_checks = 0")
     cursor.execute("delete from cars where carID ='"+carid+"'")
     conn.commit()
+    cursor.execute("SET foreign_key_checks = 1")
 
 def getusers():
     conn = mysql.connect
@@ -147,3 +149,23 @@ def getusers():
     return userdata
 
 
+def removepersonel(cusid):
+    conn = mysql.connect
+    cursor = conn.cursor()
+    cursor.execute("SET foreign_key_checks = 0")
+    cursor.execute("delete from users where username ='"+cusid+"'")
+    conn.commit()
+    cursor.execute("SET foreign_key_checks = 1")
+
+def insertpackage(packageid,carID,carrented,modelnumber,duration,category,totalcost,points):
+    conn = mysql.connect
+    cursor = conn.cursor()
+    cursor.execute("insert into packages(packageID,carID,rentedCar,modelnumber,rentDuration,Category,totalCost,rewardedPoints) Values ('"+packageid+"','"+carID+"','"+carrented+"','"+modelnumber+"','"+duration+"','"+category+"','"+str(totalcost)+"','"+str(points)+"') ")
+    conn.commit()
+
+def loadpackages():
+    conn = mysql.connect
+    cursor = conn.cursor()
+    cursor.execute("select * from packages ")
+    packages = cursor.fetchall()
+    return packages

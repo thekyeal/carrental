@@ -1,0 +1,64 @@
+{% extends "profilea.html" %}
+
+{% block content %}
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      {% if message %}
+      <h5 style="color:red" class="animated rubberBand"><strong>{{message}}</strong></h5>
+     {% endif %}
+      <h1 class="display-4">Add a rental package</h1>
+      <p class="lead">Adds a special package available for customers</p>
+    </div>
+  </div>
+  <div class="card border-primary mb-3  text-center mx-auto" style="max-width: 18rem; ">
+    <div class="card-header">Enter Package Details</div>
+    <div class="card-body text-primary">
+      <h5 class="card-title">Car Info</h5>
+      <p class="card-text">
+
+        <form  action="/addpackage" method="POST">  
+          <div class="mb-3 align-items-center" >
+            <label for="exampleInputEmail1" class="form-label">Package name </label>
+            <input type="text" class="form-control" name="packageID" >
+          </div>
+          <div class="mb-3 align-items-center">
+            <label for="exampleInputPassword1" class="form-label">Car ID</label>
+            <input type="text" class="form-control" name="carID">
+          </div>
+          <div class="mb-3 align-items-center">
+            <label for="exampleInputPassword1" class="form-label">Car being rented</label>
+            <input type="text" class="form-control" name="carname">
+          </div>
+          <div class="mb-3 align-items-center">
+            <label for="exampleInputPassword1" class="form-label">modelnumber</label>
+            <input type="text" class="form-control" name="modelnumber">
+          </div>
+          <div class="mb-3 align-items-center">
+            <label for="exampleInputPassword1" class="form-label">Days</label>
+            <input type="text" class="form-control" name="duration">
+          </div>
+          <div class="mb-3 align-items-center">
+            <label for="exampleInputPassword1" class="form-label">Category</label>
+            <input type="text" class="form-control" name="category">
+          </div>
+          <div class="mb-3 align-items-center">
+            <label for="exampleInputPassword1" class="form-label">Points Granted</label>
+            <input type="number" class="form-control" name="points">
+          </div>
+          <div class="mb-3 align-items-center">
+            <label for="exampleInputPassword1" class="form-label">Cost</label>
+            <input type="number" class="form-control" name="cost">
+          </div>
+          <button type="submit" class="btn btn-info">Add Package</button>
+        </form>
+        
+      </p>
+    </div>
+  </div>
+
+
+
+
+
+{% endblock %}

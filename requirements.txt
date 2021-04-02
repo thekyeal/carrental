@@ -27,3 +27,4 @@ Flask-Mail==0.9.1
 image==1.5.33
 Flask-MySQL==1.5.2
 flask-mysql-connector==1.1.0
+Flask-Login==0.5.0
