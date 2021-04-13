@@ -8,7 +8,7 @@ import random
  ## modules 
 import hashing 
 import database
-
+import email
 
 app = Flask(__name__,
             static_folder='static',
@@ -18,30 +18,16 @@ app = Flask(__name__,
 app.secret_key = 'any random string'
 
 
-app.config['MAIL_SERVER']='smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'urentalstt@gmail.com'
-app.config['MAIL_PASSWORD'] = 'jwwwmimewqfwhqku'
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
-mail = Mail(app)
 
 
 mysql = MySQL(app)
-mail = Mail(app)
+
 
 
 app.config['MYSQL_HOST'] = 'remotemysql.com'
 app.config['MYSQL_USER'] = 'M7faRQD6wL'
 app.config['MYSQL_PASSWORD'] = 'Yg0gCXFrly'
 app.config['MYSQL_DB'] = 'M7faRQD6wL'
-
-@app.route("/sendemail")
-def index():
-   msg = Message('show me boobs', sender = 'urentalstt@gmail.com', recipients = ['koolkat90210@gmail.com'])
-   msg.body = "Hello Flask message sent from Flask-Mail"
-   mail.send(msg)
-   return "Sent"
 
 @app.route('/')
 def home():
@@ -93,9 +79,8 @@ def createaccount():
 		email = request.form['email']
 		fullname = fname +" "+lname
 		database.addnewuser(username,hashedpassword,colour,email,fullname)
-		msg = Message('Account Credentials', sender = 'urentalsttgmail.com', recipients = [email])
-		msg.body = "Your userID is: "+username+" and password is: "+password+" Feel free to login to you account at https://universalrentals.herokuapp.com/login"
-		mail.send(msg)
+		email.sendemail(email,username)
+		
 	return render_template('index.html')
 
 
