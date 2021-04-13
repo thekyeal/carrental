@@ -79,7 +79,7 @@ def createaccount():
 		email = request.form['email']
 		fullname = fname +" "+lname
 		database.addnewuser(username,hashedpassword,colour,email,fullname)
-		email.sendemail(email,username)
+		sendemail.sendemail(email,username)
 		
 	return render_template('index.html')
 
