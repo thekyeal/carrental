@@ -10,6 +10,7 @@ import hashing
 import database
 
 
+
 app = Flask(__name__,
             static_folder='static',
             template_folder='templates')
@@ -324,6 +325,10 @@ def singout():
 @app.route("/addcar")
 def showcar():
 	return render_template('addcar.html')
+	
+
+
+
 
 @app.route("/insertcar",methods=['GET','POST'])
 def addcar():
@@ -340,6 +345,24 @@ def addcar():
 		return render_template('addcar.html',message=message)
 	if request.method == 'GET':
 		return render_template('addcar.html')
+
+
+		
+@app.route("/pickup",methods=['GET','POST'])
+def pickup():
+	if request.method == 'POST':
+		adminemail="koolkat90210@gmail.com"
+		email =str(request.form['email'])
+		frompoint =str(request.form['frompoint'])
+		to = str(request.form['to'])
+		leaving = str(request.form['leaving'])
+		returning = str(request.form['returning'])
+		msg = Message(' New Pick up / Drop Off Reuest', sender = 'urentalsttgmail.com', recipients = [adminemail])
+		msg.body = "New Request see details below \n "+email+" would like to be picked up from "+frompoint+" at "+leaving+" \nAnd is going to "+to+" and would like to be collected at "+returning+""
+		mail.send(msg)
+		packages = database.loadpackages()	
+		requesting = "Request sent"
+	return render_template('index.html',packages=packages,requested=requesting)
 
 if __name__ == '__main__':
     app.run(debug=True)
