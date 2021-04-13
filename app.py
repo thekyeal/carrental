@@ -178,10 +178,10 @@ def adminsigning():
 		password = str(request.form['password'])
 		username = session['username']
 		record = database.passwordselectoradmin(username)
-		passwordinput = record[0][0]
 		if(len(record)==0):
 			message = "Username not found"
 			return render_template('adminlogin.html',message = message)
+		passwordinput = record[0][0]
 		if(password == passwordinput):
 				records = database.getadminlogin(username)	
 				profileinfo = {
@@ -242,6 +242,7 @@ def removalofperson():
 
 @app.route("/addcar")
 def addcar():
+
 	return render_template('addcar.html')
 
 @app.route("/addpackage",methods=['GET','POST'])
@@ -306,6 +307,24 @@ def singout():
 	packages = database.loadpackages()	
 	return render_template('index.html',packages=packages)
 	
+
+@app.route("/insertcar",methods=['GET','POST'])
+def addpackage():
+	if request.method == 'POST':
+		username = session['username']
+		packagename =str(request.form['packageID'])
+		carid = str(request.form['carID'])
+		carname = str(request.form['carname'])
+		modelnumber = str(request.form['modelnumber'])
+		duration = str(request.form['duration'])
+		category = str(request.form['category'])
+		points = str(request.form['points'])
+		totalcost = str(request.form['cost'])
+		database.insertpackage(packagename,carid,carname,modelnumber,duration,category,totalcost,points)
+		message = "Package added!"
+		return render_template('addpackage.html',message=message)
+	if request.method == 'GET':
+		return render_template('addpackage.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

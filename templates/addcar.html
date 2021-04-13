@@ -4,6 +4,9 @@
 
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
+      {% if message %}
+      <h5 style="color:red" class="animated rubberBand"><strong>{{message}}</strong></h5>
+     {% endif %}
       <h1 class="display-4">Add Car</h1>
       <p class="lead">Add a car to your fleet</p>
     </div>
