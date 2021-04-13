@@ -8,6 +8,7 @@ import random
  ## modules 
 import hashing 
 import database
+
 app = Flask(__name__,
             static_folder='static',
             template_folder='templates')
@@ -28,6 +29,7 @@ app.config['MYSQL_DB'] = 'M7faRQD6wL'
 
 @app.route('/')
 def home():
+	session.pop('username', None)
 	packages = database.loadpackages()	
 	return render_template('index.html',packages=packages)
 	
@@ -44,7 +46,20 @@ def work():
 
 @app.route('/login')
 def loginform():
-    return render_template('login.html')
+	if 'username' in session:
+		username = session['username']
+		records = database.getuserinfo(username)
+		totalpoints= database.getuserpoints(username)
+		profileinfo = {
+			'username':records[0][0],
+			'fullname':records[0][4],
+			'email':records[0][3],
+			'totalpoints':totalpoints,
+			}
+		rentalhistory = database.getrentalhistory(username)
+		carinfo = database.availablecars()
+		return render_template('profile.html',user = profileinfo, history = rentalhistory , car = carinfo)
+	return render_template('login.html')
 
 @app.route("/createaccount", methods=['POST'])
 def createaccount():
@@ -69,20 +84,6 @@ def createaccount():
 
 @app.route("/signin", methods=['GET','POST'])
 def signing():
-	if 'username' in session:
-		username = session['username']
-		records = database.getuserinfo(username)
-		totalpoints= database.getuserpoints(username)
-		profileinfo = {
-			'username':records[0][0],
-			'fullname':records[0][4],
-			'email':records[0][3],
-			'totalpoints':totalpoints,
-			}
-		rentalhistory = database.getrentalhistory(username)
-		carinfo = database.availablecars()
-		return render_template('profile.html',user = profileinfo, history = rentalhistory , car = carinfo)
-
 	if request.method == 'POST':
 		session['username'] = str(request.form['username'])
 		password = str(request.form['password'])
@@ -150,8 +151,8 @@ def rent():
 		database.updatecarstatus(carid)
 
 		notice = "car succesfully rented using "+str(pointsused)+" points thank you for using Universal Rentals"	
-		
-		return render_template('index.html')
+		packages = database.loadpackages()
+		return render_template('index.html',rented=notice,packages=packages)
 		
 
 @app.route("/adminprofile")
@@ -200,8 +201,8 @@ def adminsigning():
 							}
 				usertotals = database.getcostbyuser()
 				return render_template('dashboard.html',history=rentalhistory, admininfo=profileinfo, userandtotal=usertotals)
-		message = "Password Incorrect"
-		return render_template('adminlogin.html',message = message)
+	message = "Password Incorrect"
+	return render_template('adminlogin.html',message = message)
 		
 @app.route("/removecar")
 def removecar():
@@ -274,8 +275,8 @@ def rentpackage():
 		totalcost = str(request.form['cost'])	
 		database.insertrental(username,carrented,modelnumber,duration,category,points,totalcost)	
 		packages = database.loadpackages()	
-		rented = 'rented'
-		return render_template('index.html',packages=packages,rented=rented,user=username)
+		rented = 'Car Rented'
+		return render_template('index.html',packages=packages,message=rented,user=username)
 
 @app.route("/loginuser", methods=['GET','POST'])
 def login():
@@ -299,7 +300,7 @@ def login():
 	packages = database.loadpackages()	
 	return render_template('index.html',message = message,packages=packages)
 		
-@app.route("/singout")
+@app.route("/signout")
 def singout():
 	session.pop('username', None)
 	packages = database.loadpackages()	

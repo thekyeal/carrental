@@ -40,7 +40,7 @@
     <meta name="owner" content="Kyeal Lawrence">
     <title>Universal Rental</title>
   </head>
-  <body>
+  <body onload="loadbot()">
     
 
     <header id="header" class="fixed-top d-flex align-items-center">
@@ -62,7 +62,7 @@
               <li class="drop-down"><a href="/login">Login</a>
                 <ul>
                   <li><a href="/adminlogin">Admin</a></li>
-                  <li><a href="/signin">Customer</a></li>
+                  <li><a href="/login">Customer</a></li>
                 </ul>
               </li>
               <li><a href="/login">Contact</a></li>
@@ -76,7 +76,9 @@
     
     {% if rented %}
     <script>
-      $('#sucess').modal('show');
+      $(document).ready(function(){
+        $("#sucess").modal("show");
+      });
     </script>
     {% endif %}
 
@@ -165,7 +167,7 @@
         </div>
       </div>
 
-      <iframe style="height:480px; width:402px" src="https://webchat.botframework.com/embed/Stellaconnect?s=QV16D6x_ex0.jmpfHXszoXOcyFMcDVUrIbdrZV8U2y5r63-ybayawok "></iframe>
+
         
     
         <div class="site-section bg-light">

@@ -68,7 +68,7 @@ def getrentalhistory(username):
 def availablecars():
     conn = mysql.connect
     cursor = conn.cursor()
-    cursor.execute("Select * from cars WHERE carStatus='Available'")
+    cursor.execute("Select * from cars WHERE carStatus='Available' LIMIT 3")
     cars = cursor.fetchall()
     return cars
 
