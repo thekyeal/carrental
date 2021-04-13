@@ -8,7 +8,7 @@ import random
  ## modules 
 import hashing 
 import database
-import email
+import sendemail
 
 app = Flask(__name__,
             static_folder='static',
