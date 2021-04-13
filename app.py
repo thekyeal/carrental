@@ -241,8 +241,7 @@ def removalofperson():
 
 
 @app.route("/addcar")
-def addcar():
-
+def showcar():
 	return render_template('addcar.html')
 
 @app.route("/addpackage",methods=['GET','POST'])
@@ -309,7 +308,7 @@ def singout():
 	
 
 @app.route("/insertcar",methods=['GET','POST'])
-def addpackage():
+def addcar():
 	if request.method == 'POST':
 		username = session['username']
 		packagename =str(request.form['packageID'])
