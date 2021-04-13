@@ -169,3 +169,12 @@ def loadpackages():
     cursor.execute("select * from packages ")
     packages = cursor.fetchall()
     return packages
+
+def addnewcar(carid,carName,modelno,category,cost,carstatus):
+    conn = mysql.connect
+    cursor = conn.cursor()
+    cursor.execute("SET foreign_key_checks = 0")
+    cursor.execute("insert into cars(carID,carName,modelNo,category,cost,carStatus) Values ('"+carid+"','"+carName+"','"+modelno+"','"+category+"','"+cost+"','"+carstatus+"') ")
+    conn.commit()
+    cursor.execute("SET foreign_key_checks = 1")
+

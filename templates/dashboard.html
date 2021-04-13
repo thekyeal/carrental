@@ -43,17 +43,17 @@
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <a class="navbar-brand" href="dashboard.html">
+                    <a class="navbar-brand" href="#">
                         <!-- Logo icon -->
                         <b class="logo-icon">
                             <!-- Dark Logo icon -->
-                            <img src="plugins/images/logo-icon.png" alt="homepage" />
+                            <img src="../static/images/logo-icon.png" alt="homepage" />
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
                         <span class="logo-text">
                             <!-- dark Logo text -->
-                            <img src="plugins/images/logo-text.png" alt="homepage" />
+                            <img src="../static/images/logo-text.png" alt="homepage" />
                         </span>
                     </a>
                     <!-- ============================================================== -->
@@ -78,21 +78,14 @@
                         <!-- ============================================================== -->
                         <!-- Search -->
                         <!-- ============================================================== -->
-                        <li class=" in">
-                            <form role="search" class="app-search d-none d-md-block me-3">
-                                <input type="text" placeholder="Search..." class="form-control mt-0">
-                                <a href="" class="active">
-                                    <i class="fa fa-search"></i>
-                                </a>
-                            </form>
-                        </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
+
                         <li>
                             <a class="profile-pic" href="#">
-                                <img src="plugins/images/users/varun.jpg" alt="user-img" width="36"
-                                    class="img-circle"><span class="text-white font-medium">Steave</span></a>
+                                <img src="../static/images/adminpic.jpg" alt="user-img" width="36"
+                                    class="img-circle"><span class="text-white font-medium">Admin</span></a>
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -124,44 +117,41 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/addcar"
                                 aria-expanded="false">
-                                <i class="fa fa-table" aria-hidden="true"></i>
-                                <span class="hide-menu">Add a car</span>
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                <span class="hide-menu">Add a Vehicle</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/removecar"
                                 aria-expanded="false">
-                                <i class="fa fa-font" aria-hidden="true"></i>
+                                <i class="fa fa-trash" aria-hidden="true"></i>
                                 <span class="hide-menu">Remove a car </span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/removecustomer"
                                 aria-expanded="false">
-                                <i class="fa fa-globe" aria-hidden="true"></i>
+                                <i class="fa fa-times" aria-hidden="true"></i>
                                 <span class="hide-menu">Remove a Customer</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/addpackage"
                                 aria-expanded="false">
-                                <i class="fa fa-columns" aria-hidden="true"></i>
+                                <i class="fa fa-archive" aria-hidden="true"></i>
                                 <span class="hide-menu">Add a rental Package</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/signout"
-                                aria-expanded="false">
-                                <i class="fa fa-columns" aria-hidden="true"></i>
-                                <span class="hide-menu">Sign out</span>
-                            </a>
-                        </li>
+                        <li class="text-center p-20 upgrade-btn">
+                          <a href="/signout"
+                              class="btn d-grid btn-danger text-white" > Sign out</a>
+                      </li>
+                  </ul>
                     </ul>
 
                 </nav>
-                <!-- End Sidebar navigation -->
             </div>
-            <!-- End Sidebar scroll-->
+
         </aside>
         <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
@@ -173,22 +163,6 @@
             <!-- ============================================================== -->
             <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
-            <div class="page-breadcrumb bg-white">
-                <div class="row align-items-center">
-                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Dashboard</h4>
-                    </div>
-                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                        <div class="d-md-flex">
-                            <ol class="breadcrumb ms-auto">
-                                <li><a href="#" class="fw-normal">Dashboard</a></li>
-                            </ol>
-                           
-                        </div>
-                    </div>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
             <!-- ============================================================== -->
             <!-- End Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
@@ -205,7 +179,7 @@
                             <h3 class="box-title">Total Users</h3>
                             <ul class="list-inline two-part d-flex align-items-center mb-0">
                                 <li>
-									<img src="team-work.png" style="display: inline-block; height: 30px; vertical-align: top;">
+									<img src="../static/images/team-work.png" style="display: inline-block; height: 30px; vertical-align: top;">
                                    
                                 </li>
                                 <li class="ms-auto"><span class="counter text-success">{{admininfo.users}}</span></li>
@@ -217,7 +191,7 @@
                             <h3 class="box-title">Total Rentals</h3>
                             <ul class="list-inline two-part d-flex align-items-center mb-0">
                                 <li>
-                                    <img src="car-rental.png" style="display: inline-block; height: 30px; vertical-align: top;">
+                                    <img src="../static/images/car-rental.png" style="display: inline-block; height: 30px; vertical-align: top;">
                                 </li>
                                 <li class="ms-auto"><span class="counter text-purple">{{admininfo.rents}}</span></li>
                             </ul>
@@ -228,7 +202,7 @@
                             <h3 class="box-title">Sales</h3>
                             <ul class="list-inline two-part d-flex align-items-center mb-0">
                                 <li>
-                                    <img src="money.png" style="display: inline-block; height: 30px; vertical-align: top;">
+                                    <img src="../static/images/money.png" style="display: inline-block; height: 30px; vertical-align: top;">
                                 </li>
                                 <li class="ms-auto"><span class="counter text-info">${{admininfo.sales}}</span>
                                 </li>
@@ -294,12 +268,6 @@
                                         <div class="call-chat">
 											<h5>${{row[1]}}</h5>
                                         </div>
-                                        <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                                src="plugins/images/users/varun.jpg" alt="user-img" class="img-circle">
-                                            <div class="ms-2">
-                                                <span class="text-dark">{{row[0]}} </span>                                           
-                                            </div>
-                                        </a>
                                     </li>
                                     {% endfor %}
                                 </ul>
@@ -315,18 +283,30 @@
                             <div class="card-body">
                                 <ul class="chatonline">
                                     <li>
-                                        <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                                src="plugins/images/users/varun.jpg" alt="user-img" class="img-circle">
+                                        <a href="/addcar" class="d-flex align-items-center">
                                             <div class="ms-2">
-                                                <button type="button" class="btn btn-success">Add a car</button>
+                                                <a href="/addcar" class="btn btn-info" role="button" target="_blank">Add Vehicle</a>                                                
                                             </div>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                                src="plugins/images/users/genu.jpg" alt="user-img" class="img-circle">
+                                        <a href="/removevehicle" class="d-flex align-items-center">
                                             <div class="ms-2">
-                                                <button type="button" class="btn btn-danger">Remove Car</button>
+                                                <a href="/removecar" class="btn btn-danger" role="button" target="_blank">Remove Vehicle</a>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/removecustomer" class="d-flex align-items-center">
+                                            <div class="ms-2">
+                                                <a href="/removecustomer" class="btn btn-danger" role="button" target="_blank">Remove Customer</a>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/addpackage" class="d-flex align-items-center">
+                                            <div class="ms-2">
+                                                <a href="/addpackage" class="btn btn-info" role="button" target="_blank ">Add Rental Package</a>
                                             </div>
                                         </a>
                                     </li>

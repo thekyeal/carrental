@@ -18,7 +18,11 @@
       <h5 class="card-title">Car Info</h5>
       <p class="card-text">
 
-        <form>
+        <form  action="/insertcar" method="POST">  
+          <div class="mb-3 align-items-center" >
+            <label for="exampleInputEmail1" class="form-label">Car ID </label>
+            <input type="text" class="form-control" name="carID" >
+          </div>
           <div class="mb-3 align-items-center" >
             <label for="exampleInputEmail1" class="form-label">Car name </label>
             <input type="text" class="form-control" name="carname" >

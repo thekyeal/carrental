@@ -240,10 +240,6 @@ def removalofperson():
 
 
 
-@app.route("/addcar")
-def showcar():
-	return render_template('addcar.html')
-
 @app.route("/addpackage",methods=['GET','POST'])
 def addpackage():
 	if request.method == 'POST':
@@ -305,25 +301,28 @@ def singout():
 	session.pop('username', None)
 	packages = database.loadpackages()	
 	return render_template('index.html',packages=packages)
-	
+
+
+
+@app.route("/addcar")
+def showcar():
+	return render_template('addcar.html')
 
 @app.route("/insertcar",methods=['GET','POST'])
 def addcar():
 	if request.method == 'POST':
 		username = session['username']
-		packagename =str(request.form['packageID'])
-		carid = str(request.form['carID'])
-		carname = str(request.form['carname'])
+		carID =str(request.form['carID'])
+		carname =str(request.form['carname'])
 		modelnumber = str(request.form['modelnumber'])
-		duration = str(request.form['duration'])
 		category = str(request.form['category'])
-		points = str(request.form['points'])
-		totalcost = str(request.form['cost'])
-		database.insertpackage(packagename,carid,carname,modelnumber,duration,category,totalcost,points)
-		message = "Package added!"
-		return render_template('addpackage.html',message=message)
+		cost = str(request.form['cost'])
+		carstatus = "Available"
+		database.addnewcar(carID,carname,modelnumber,category,cost,carstatus)
+		message = "Car added!"
+		return render_template('addcar.html',message=message)
 	if request.method == 'GET':
-		return render_template('addpackage.html')
+		return render_template('addcar.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
