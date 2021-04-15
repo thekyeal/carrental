@@ -81,8 +81,10 @@ def updatepoints(totalpoints,username):
 def insertrental(username,carrented,modelnumber,duration,category,pointsearned,totalcost):
     conn = mysql.connect
     cursor = conn.cursor()
+    cursor.execute("SET foreign_key_checks = 0")
     cursor.execute("insert into RentalHistory(username,carRented,modelNo,duration,category,pointsEarned,totalcost) Values ('"+username+"','"+carrented+"','"+modelnumber+"','"+duration+"','"+category+"','"+str(pointsearned)+"','"+str(totalcost)+"') ")
     conn.commit()
+    cursor.execute("SET foreign_key_checks = 1")
 
 def updatecarstatus(carid):
     conn = mysql.connect

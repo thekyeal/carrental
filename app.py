@@ -8,7 +8,7 @@ import random
  ## modules 
 import hashing 
 import database
-
+import chatbot
 
 
 app = Flask(__name__,
@@ -65,12 +65,12 @@ def work():
 def loginform():
 	if 'username' in session:
 		username = session['username']
-		records = database.getuserinfo(username)
-		totalpoints= database.getuserpoints(username)
+		records = chatbot.getuserinfocb(username)
+		totalpoints= chatbot.getuserpointscb(username)
 		profileinfo = {
-			'username':records[0][0],
-			'fullname':records[0][4],
-			'email':records[0][3],
+			'username':records[0][1],
+			'fullname':records[0][5],
+			'email':records[0][4],
 			'totalpoints':totalpoints,
 			}
 		rentalhistory = database.getrentalhistory(username)
@@ -106,20 +106,23 @@ def signing():
 		session['username'] = str(request.form['username'])
 		password = str(request.form['password'])
 		username = session['username']
-		record = database.getuserinfo(username)
+		#record = database.getuserinfo(username)
+		record = chatbot.getuserinfocb(username)
 		if(len(record)==0):
 			message = "Username not found"
 			return render_template('login.html',message = message)
 
-		passwordinput = record[0][1]
+		passwordinput = record[0][2]
 			
 		if(hashing.verify_password(passwordinput, password)):
-				records = database.getuserinfo(username)
-				totalpoints= database.getuserpoints(username)
+				#records = database.getuserinfo(username)
+				records = chatbot.getuserinfocb(username)
+				#totalpoints= database.getuserpoints(username)
+				totalpoints= chatbot.getuserpointscb(username)
 				profileinfo = {
-					'username':records[0][0],
-					'fullname':records[0][4],
-					'email':records[0][3],
+					'username':records[0][1],
+					'fullname':records[0][5],
+					'email':records[0][4],
 					'totalpoints':totalpoints,
 					}
 				username = session['username']
@@ -144,7 +147,7 @@ def savepic():
 def rent():
 	if request.method == 'POST':
 		username = session['username']
-		points = int(database.getuserpoints(username))
+		points = int(chatbot.getuserpointscb(username))
 		carrented = str(request.form['carrented'])
 		modelnumber = str(request.form['modelnumber'])
 		duration = str(request.form['duration'])
@@ -164,13 +167,13 @@ def rent():
 			pointsused = 0
 			totalcost = float(carprice) + (int(duration) * 100) - pointsused
 			pointsearned = int(duration) * 50
-			database.updatepoints(pointsearned,username)	
+			chatbot.updatepointscb(pointsearned,username)	
 		database.insertrental(username,carrented,modelnumber,duration,category,pointsearned,totalcost)
 		database.updatecarstatus(carid)
 
 		notice = "car succesfully rented using "+str(pointsused)+" points thank you for using Universal Rentals"	
 		packages = database.loadpackages()
-		return render_template('index.html',rented=notice,packages=packages)
+		return render_template('index.html',carrent=notice,packages=packages)
 		
 
 @app.route("/adminprofile")
