@@ -5,18 +5,23 @@ from flask_mysql_connector import MySQL
 import mysql.connector
 
 confi = {
-    'host': 'unirentals.mysql.database.azure.com',
-    'user': 'Kreation@unirentals',
-    'password': 'KyealAnnaKeidell@',
-    'database': 'unirentals'
+    'host': 'carrentals.mysql.database.azure.com',
+    'user': 'kreation@carrentals',
+    'password': 'Wethepeople@3',
+    'database': 'universalRentals',
+    'port' : '3306'
 }
+
 
 conn = mysql.connector.connect(**confi)
 cursor = conn.cursor()
-#cursor.execute("Insert Into users(username,password1,colour,email_address,fullname) VALUES ('John ','adsfdfsfsd ', ' green ', ' email ','fullname')")
-conn.commit()
+#cursor.execute("Insert Into users(username,password,colour,email_address,fullName) VALUES ('John ','adsfdfsfsd ', ' green ', ' email ','fullname')")
+#conn.commit()
 
 cursor.execute("Select * from users")
+rentalhistory = cursor.fetchall()
+
+print(rentalhistory)
 
 
 

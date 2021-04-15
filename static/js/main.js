@@ -10,8 +10,8 @@ function loadbot() {
   var x = document.getElementsByTagName("BODY")[0]
   console.log(x)
   document.body.appendChild(div);
-  div.outerHTML = "<div id='botDiv' style='height: 38px; position: fixed; bottom: 0; z-index: 1000; background-color: #fff'><div id='botTitleBar' style='height: 38px; width: 400px; position:fixed; cursor: pointer;'></div><iframe width='400px' height='600px' src='https://webchat.botframework.com/embed/Stellaconnect?s=QV16D6x_ex0.jmpfHXszoXOcyFMcDVUrIbdrZV8U2y5r63-ybayawok '></iframe></div>"; 
-
+  div.outerHTML = "<div id='botDiv' style='height: 38px; position: fixed; bottom: 0; z-index: 1000; background-color: #fff'><div id='botTitleBar' style='height: 38px; width: 400px; background-color: #4fc99a; position:fixed; cursor: pointer;'></div><iframe width='400px' height='600px' src='https://webchat.botframework.com/embed/Stellaconnect?s=QV16D6x_ex0.jmpfHXszoXOcyFMcDVUrIbdrZV8U2y5r63-ybayawok '></iframe>  </div>"; 
+  document.getElementById("botTitleBar").innerHTML +="<h5 style='color:#fff ; text-align:center'>Lets chat </h5>";
   document.querySelector('body').addEventListener('click', function (e) {
       e.target.matches = e.target.matches || e.target.msMatchesSelector;
       if (e.target.matches('#botTitleBar')) { 
