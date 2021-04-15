@@ -173,7 +173,8 @@ def rent():
 
 		notice = "car succesfully rented using "+str(pointsused)+" points thank you for using Universal Rentals"	
 		packages = database.loadpackages()
-		return render_template('index.html',carrent=notice,packages=packages)
+
+		return render_template('index.html',carrent=notice,packages=packages,user=username)
 		
 
 @app.route("/adminprofile")
@@ -292,7 +293,7 @@ def rentpackage():
 		totalcost = str(request.form['cost'])	
 		database.insertrental(username,carrented,modelnumber,duration,category,points,totalcost)	
 		packages = database.loadpackages()	
-		rented = 'Car Rented'
+		rented = 'Package Rented'
 		return render_template('index.html',packages=packages,message=rented,user=username)
 
 @app.route("/loginuser", methods=['GET','POST'])
