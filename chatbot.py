@@ -28,7 +28,6 @@ def getuserinfocb(username):
     cursor = conn.cursor()
     cursor.execute("select * from users where username='"+username+"'")
     records = cursor.fetchall()
-    print(records[0][2])
     return records
 
 def getuserpointscb(username):
