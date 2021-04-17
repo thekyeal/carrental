@@ -66,7 +66,7 @@ def loginform():
 	if 'username' in session:
 		username = session['username']
 		records = database.getuserinfo(username)
-		totalpoints= datbase.getuserpoints(username)
+		totalpoints= database.getuserpoints(username)
 		profileinfo = {
 			'username':records[0][1],
 			'fullname':records[0][5],
