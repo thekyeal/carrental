@@ -65,8 +65,8 @@ def work():
 def loginform():
 	if 'username' in session:
 		username = session['username']
-		records = chatbot.getuserinfocb(username)
-		totalpoints= chatbot.getuserpointscb(username)
+		records = database.getuserinfo(username)
+		totalpoints= datbase.getuserpoints(username)
 		profileinfo = {
 			'username':records[0][1],
 			'fullname':records[0][5],
@@ -106,8 +106,7 @@ def signing():
 		session['username'] = str(request.form['username'])
 		password = str(request.form['password'])
 		username = session['username']
-		#record = database.getuserinfo(username)
-		record = chatbot.getuserinfocb(username)
+		record = database.getuserinfo(username)
 		if(len(record)==0):
 			message = "Username not found"
 			return render_template('login.html',message = message)
@@ -115,10 +114,8 @@ def signing():
 		passwordinput = record[0][2]
 			
 		if(hashing.verify_password(passwordinput, password)):
-				#records = database.getuserinfo(username)
-				records = chatbot.getuserinfocb(username)
-				#totalpoints= database.getuserpoints(username)
-				totalpoints= chatbot.getuserpointscb(username)
+				records = database.getuserinfo(username)
+				totalpoints= database.getuserpoints(username)
 				profileinfo = {
 					'username':records[0][1],
 					'fullname':records[0][5],
@@ -147,7 +144,7 @@ def savepic():
 def rent():
 	if request.method == 'POST':
 		username = session['username']
-		points = int(chatbot.getuserpointscb(username))
+		points = int(database.getuserpoints(username))
 		carrented = str(request.form['carrented'])
 		modelnumber = str(request.form['modelnumber'])
 		duration = str(request.form['duration'])
@@ -167,7 +164,7 @@ def rent():
 			pointsused = 0
 			totalcost = float(carprice) + (int(duration) * 100) - pointsused
 			pointsearned = int(duration) * 50
-			chatbot.updatepointscb(pointsearned,username)	
+			database.updatepointscb(pointsearned,username)	
 		database.insertrental(username,carrented,modelnumber,duration,category,pointsearned,totalcost)
 		database.updatecarstatus(carid)
 
