@@ -164,7 +164,7 @@ def rent():
 			pointsused = 0
 			totalcost = float(carprice) + (int(duration) * 100) - pointsused
 			pointsearned = int(duration) * 50
-			database.updatepointscb(pointsearned,username)	
+			database.updatepoints(pointsearned,username)	
 		database.insertrental(username,carrented,modelnumber,duration,category,pointsearned,totalcost)
 		database.updatecarstatus(carid)
 
