@@ -118,8 +118,8 @@ def signing():
 				totalpoints= database.getuserpoints(username)
 				profileinfo = {
 					'username':records[0][0],
-					'fullname':records[0][3],
-					'email':records[0][4],
+					'fullname':records[0][4],
+					'email':records[0][3],
 					'totalpoints':totalpoints,
 					}
 				username = session['username']
