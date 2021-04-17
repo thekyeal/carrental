@@ -111,15 +111,15 @@ def signing():
 			message = "Username not found"
 			return render_template('login.html',message = message)
 
-		passwordinput = record[0][2]
+		passwordinput = record[0][1]
 			
 		if(hashing.verify_password(passwordinput, password)):
 				records = database.getuserinfo(username)
 				totalpoints= database.getuserpoints(username)
 				profileinfo = {
-					'username':records[0][1],
-					'fullname':records[0][5],
-					'email':records[0][4],
+					'username':records[0][0],
+					'fullname':records[0][4],
+					'email':records[0][3],
 					'totalpoints':totalpoints,
 					}
 				username = session['username']
